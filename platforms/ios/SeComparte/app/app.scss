@@ -1,0 +1,13 @@
+@import 'app-variables';
+@import 'app-common';
+@import '~nativescript-theme-core/scss/platforms/index.ios';
+
+// Place any CSS rules you want to apply only on iOS here
+.input-app{
+	padding-top:10; 
+	padding-bottom:10; 
+	padding-left:5;
+}
+NavigationButton{
+	font-family:"Intro,Intro Regular";
+}

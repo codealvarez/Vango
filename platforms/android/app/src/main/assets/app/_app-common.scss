@@ -1,0 +1,293 @@
+// Import the theme’s variables. If you’re using a color scheme
+// other than “light”, switch the path to the alternative scheme,
+// for example '~nativescript-theme-core/scss/dark'.
+@import '~nativescript-theme-core/scss/light';
+
+// Customize any of the theme’s variables here, for instance $btn-color: red;
+
+// Import the theme’s main ruleset.
+@import '~nativescript-theme-core/scss/index';
+
+// Place any CSS rules you want to apply on both iOS and Android here.
+// This is where the vast majority of your CSS code goes.
+*{
+    font-family:"Intro,Intro Light";
+}
+.textoNoRutas{
+    font-size:20;
+    padding-top:70;
+}
+.fa {
+    font-family: "FontAwesome";
+}
+.logo-login{
+    margin-top:40;
+}
+.loginPage { 
+    /* background-image: url('~/images/fondo_login.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover; */
+}
+.cantidadPasajeros{
+    font-size:30;
+    vertical-align:center; 
+}
+.precioViaje{
+    font-size:20;
+}
+.valorPagar{
+    font-size:25;
+    vertical-align:center;
+}
+.bienvenida{
+    color:#ed6c37;
+    font-family:Intro,Intro Light;
+}
+.input-app{
+    /* background-color:#c0c0c0; */
+    background: linear-gradient(to bottom, #efefef, #c0c0c0);
+    border-radius:4;
+    font-family:Intro,Intro Regular; 
+} 
+.btn{
+    font-family:"Intro,Intro Regular";
+}
+.btn-principal{
+    background: linear-gradient(to bottom, #b41642, #7c1130);
+    /* background-color:$botonPrincipal; */
+    color:#FFFFFF;
+    border-radius:4;
+    font-family:Intro,Intro Light;
+}
+.btn-secundario{
+    /* background-color:$botonSecundario; */
+    background: linear-gradient(to bottom, #f9b640, #ec651c);
+    color:#FFFFFF;
+    border-radius:4;
+    font-family:"Intro,Intro Regular";
+}
+.botonCrearCuenta{
+    margin-top:50;
+}
+.btn-borrar{
+    background-color:$rojo;
+    color:#FFFFFF;
+    text-transform: capitalize;
+}
+.itemLista{
+    border-bottom-color:#FFFFFF;
+    border-top-color:#FFFFFF;
+    
+    border-right-color:#FFFFFF;
+    border-width:5;
+    background-color:#FFFFFF;
+}
+.listaDisponibles .odd{
+    border-left-color:$azul;
+}
+.listaDisponibles .even{
+    border-left-color:$naranja;
+}
+.nombreRuta{
+    font-size:30;
+    vertical-align:center;
+}
+.listaDisponibles .odd .nombreRuta{
+    color:$azul;
+}
+.listaDisponibles .even .nombreRuta{
+    color:$naranja;
+}
+
+.pageDisponibles{
+    background-color:#F8F8F8;
+}
+.horaRuta{
+    font-size:30;
+    color:$grisTexto;
+}
+.btn-lista{
+    margin:0;
+}
+.imagenPuntos{
+    width:15;
+    horizontal-align:right;
+    vertical-align:center;
+    margin-right:3;
+}
+.textoPuntos{
+    vertical-align:bottom;
+}
+.textoDestino{
+    vertical-align:top;
+}
+.btn-completo{
+    width:100%;
+}
+.cuposText{
+    font-size:40;
+    color:$grisTexto;
+    horizontal-align:center;
+    vertical-align:bottom;
+}
+.cuposLabel{
+    horizontal-align:right;
+    vertical-align:bottom;
+}
+
+.imagenBorde{
+    width:2;
+    horizontal-align:left;
+    vertical-align:center;
+}
+.textoLabelRecogida{
+    color:$grisTexto;
+    horizontal-align:left;
+    padding-top:15;
+    margin-bottom:2;
+    padding-left:15;
+}
+.textoRecogida{
+    color:$botonSecundario;
+    horizontal-align:left;
+    margin-bottom:2;
+    padding-left:15;
+    font-size:25;
+}
+.placaText{
+    background-color:$botonSecundario;
+    color:#FFFFFF;
+    border-radius:10;
+    vertical-align:center;
+    horizontal-align:center;
+    padding:5;
+}
+.conductorNombre{
+    color:$botonSecundario;
+    font-size:20;
+}
+// Common page class
+.page-content {
+    .page-placeholder {
+        color: $page-icon-color;
+        font-size: $page-content-placeholder-font-size;
+        vertical-align: center;
+        horizontal-align: center;
+    }
+
+    .page-icon {
+        font-size: 72;
+        vertical-align: top;
+        horizontal-align: center;
+        color: $page-icon-color;
+        margin-top: 20%;
+    }
+}
+.subtituloVista{
+    horizontal-align: center;
+    vertical-align: top;
+    background: linear-gradient(to bottom, #a800ca, #72009e);
+    color:#ffffff;
+    border-radius:4;
+    padding:8;
+    margin-top:4;
+}
+.abajoVista{
+    horizontal-align: center;
+    vertical-align: bottom;
+    margin-bottom:2;
+    width:100%;
+}
+
+//Action bar
+ActionBar .action-bar-title {
+    horizontal-align: center;
+    color:$headings-color;
+}
+
+ // Drawer navigation custom styles
+$sidedrawer-header-image-size: 60;
+$sidedrawer-header-image-offset-top: 20;
+$sidedrawer-header-image-offset-bottom: 5;
+$sidedrawer-list-item-offset-left: 15;
+$sidedrawer-list-icon-offset: 10;
+$sidedrawer-list-icon-size: 20;
+
+.sidedrawer {
+    &.sidedrawer-left {
+        background-color: #ffffff;
+
+        .sidedrawer-header-image {
+            horizontal-align:center; 
+            color: #ffffff;
+            background-color: #ffffff;
+            height: $sidedrawer-header-image-size;
+            width: $sidedrawer-header-image-size;
+            font-size: $sidedrawer-header-image-size;
+            padding: 0;
+            margin-bottom: $sidedrawer-header-image-offset-bottom;
+            margin-top: $sidedrawer-header-image-offset-top;
+        }
+
+        .footnote {
+            color:#73899c;
+        }
+    }
+
+    .sidedrawer-header {
+        background-color: #ffffff;
+
+
+        .sidedrawer-header-brand {
+            horizontal-align:center;
+            color:#73899c;
+        }
+    }
+
+    .sidedrawer-content {
+        background-color: $side-drawer-background;
+
+        $sidedrawer-list-item-offset-left: 15;
+        $sidedrawer-list-icon-offset: 10;
+        $sidedrawer-list-icon-size: 20;
+
+        .sidedrawer-list-item {
+            padding-left: $sidedrawer-list-item-offset-left;
+            Label {
+                vertical-align: center;
+                color: $blue-dark;
+            }
+            .fa {
+                width: $sidedrawer-list-icon-size;
+                margin-right: $sidedrawer-list-icon-offset;
+            }
+            &.selected {
+                background-color: $item-active-background;
+                Label {
+                    color: $item-active-color;
+                }
+            }
+        }
+    }
+}
+//Estilos del botón
+.fab-button {
+    height: 70;
+    width: 70; /// this is required on iOS - Android does not require width so you might need to adjust styles 
+    margin: 15;
+    background-color: $botonSecundario;
+    horizontal-align: right; 
+    vertical-align: bottom; 
+}
+.fab-button2 {
+    height: 70;
+    width: 70; /// this is required on iOS - Android does not require width so you might need to adjust styles 
+    margin: 15;
+    background-color: $botonPrincipal; 
+    horizontal-align: left; 
+    vertical-align: bottom; 
+}
+.titulo{
+    font-size:20;
+}

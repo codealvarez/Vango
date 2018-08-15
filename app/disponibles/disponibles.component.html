@@ -1,0 +1,59 @@
+<ActionBar class="action-bar">
+	<NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+	<ActionItem icon="res://menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
+        ios.position="left">
+    </ActionItem>
+	<Label class="action-bar-title" text="Rutas disponibles"></Label>
+</ActionBar>
+
+<GridLayout rows="auto,*"  width="100%" class="pageDisponibles">
+	<StackLayout row="0" class="p-20" (loaded)="onSearchLayoutLoaded($event)"> 
+		<SearchBar hint="Busca por barrio o lugar" [text]="searchPhrase" (clear)="onClear($event)" (textChange)="onTextChanged($event)" (submit)="onSubmit($event)" (loaded)="onSearchBarLoaded($event)"
+	        color="gray" textFieldBackgroundColor="white" textFieldHintColor="gray" class="m-b-5"></SearchBar>
+        <!-- <Label class="text-center textoNoRutas" text="No existen rutas que coincidan con tu búsqueda" textWrap="true" visibility="{{ myItems.length == 0 ? 'visible' : 'collapsed' }}"></Label> -->
+        <!-- <Label class="text-center textoNoRutas" text="No existen rutas que coincidan con tu búsqueda" textWrap="true" *ngIf="encontrados"></Label> -->
+    </StackLayout>
+
+    
+
+    <ListView  [items]="myItems" row="1">
+	    <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+	        <StackLayout class="p-l-5 listaDisponibles">
+				<GridLayout columns="*,*,*,*,*,*" rows="*,*,*,*" class="p-l-10 p-t-10 itemLista m-b-5" [class.odd]="odd" [class.even]="even" >
+	            	<!-- <Label class="font-weight-bold nombreRuta text-center" col="0" row="0" colSpan="2" [text]='"@A"+item.idruta'></Label>
+	            	<Label class="text-center" col="0" row="1" colSpan="2" text="Inicio Ruta:"></Label>
+	            	<Label class="text-center horaRuta" col="0" row="2" colSpan="2" [text]='item.hora_viaje'></Label>
+
+	            	<Label class="text-center" col="0" row="3" colSpan="2" [text]='"$ "+item.precio'></Label>
+
+	            	<Image src="~/images/bordeInterno.png" class="imagenBorde" row="0" col="2" rowSpan="4"></Image>
+	            	<Image src="~/images/puntos.png" class="imagenPuntos" row="0" col="2" rowSpan="3"></Image>
+	            	<Label class="font-weight-bold textoPuntos" col="3" row="0" colSpan="3" [text]="item.origen"></Label>
+	            	<Label class="font-weight-bold textoPuntos" col="3" row="2" colSpan="3" [text]="item.destino"></Label>
+
+	            	<Label col="3" row="3" colSpan="2" class="cuposLabel" text="Cupos disponibles:"></Label>
+	            	<Label col="5" row="3" class="cuposText" [text]='item.disponibles'></Label>
+ 
+	            	<Button col="0" row="4" colSpan="3" class="btn btn-secundario btn-lista" id="button" text="Ver recorrido"></Button>
+
+	            	<Button col="3" row="4" colSpan="3" class="btn btn-principal btn-lista" id="button" text="Ver horarios" [nsRouterLink]="['/ruta/'+item.idruta+'/'+item.idviaje+'/'+item.precio+'/'+item.nombreruta]"></Button> -->
+
+	            	<Label class="font-weight-bold nombreRuta text-center" col="0" row="0" colSpan="2" rowSpan="3" [text]='"@A"+item.idruta'></Label>
+
+	            	<Image src="~/images/bordeInterno.png" class="imagenBorde" row="0" col="2" rowSpan="3"></Image>
+	            	<Image src="~/images/puntos.png" class="imagenPuntos" row="0" col="2" rowSpan="3"></Image>
+	            	<Label class="font-weight-bold textoPuntos" col="3" row="0" colSpan="3" [text]="item.origen"></Label>
+	            	<Label class="font-weight-bold textoDestino" col="3" row="2" colSpan="3" [text]="item.destino"></Label>
+ 
+	            	<Button col="0" row="3" colSpan="3" class="btn btn-secundario btn-lista" text="Ver recorrido" [nsRouterLink]="['/recorrido/'+item.idruta+'/'+item.idviaje+'/'+item.nombreruta]"></Button>
+
+	            	<Button col="3" row="3" colSpan="3" class="btn btn-principal btn-lista" text="Ver horarios" [nsRouterLink]="['/horarios/'+item.idruta+'/'+item.nombreruta]"></Button>
+
+
+	            </GridLayout>
+	        </StackLayout> 
+	    </ng-template>
+	</ListView>
+	
+
+</GridLayout>	

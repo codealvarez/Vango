@@ -1,0 +1,32 @@
+<ActionBar class="action-bar">
+	<NavigationButton text="Volver" android.systemIcon="ic_menu_back" (tap)="irAtras()"></NavigationButton>
+    <Label class="action-bar-title" text="Calificar viaje"></Label>
+</ActionBar>
+<!-- <StackLayout class="page" xmlns:ui="nativescript-star-ratings"> -->
+<!-- <StackLayout class="page">
+	<Label class="h1 text-center" text="Primera pregunta"></Label>
+	<StarRating emptyBorderColor="white" emptyColor="white" filledBorderColor="black" filledColor="red" value="{{value}}" max="{{max}}"></StarRating> 
+	<Label class="h2 text-center" text="Segunda pregunta"></Label>
+</StackLayout>-->
+
+<!-- <GridLayout rows="*,40,*,40" cols="*"> 
+   <Label row="0" class="font-weight-bold text-center p-10"  text='Primera pregunta'></Label>
+   <StarRating row="1" col="0" emptyBorderColor="gray" emptyColor="white" filledBorderColor="white" filledColor="yellow" value="{{value}}" max="5"></StarRating> 
+   <Label row="2" class="font-weight-bold text-center p-10"  text='Segunda pregunta'></Label>
+   <GridLayout height="60" borderRadius="5" backgroundColor="lightgray">
+        <ui:StarRating horizontalAlignment="center" verticalAlignment="center" id="rating" emptyBorderColor="white" emptyColor="white" filledBorderColor="black" filledColor="red" value="{{value}}" max="{{max}}" isindicator="false"/>
+    </GridLayout>
+</GridLayout> -->
+<StackLayout class="p-20">
+    <Label class="m-t-10 p-10 text-center bienvenida h2" textWrap="true" text="Gracias por tu confianza"></Label>
+    <GridLayout height="60" borderRadius="5" backgroundColor="lightgray">
+        <ui:StarRating horizontalAlignment="center" verticalAlignment="center" id="rating" emptyBorderColor="white" emptyColor="white" filledBorderColor="black" filledColor="blue" value="{{value}}" max="{{max}}" isindicator="false"></ui:StarRating>
+    </GridLayout>
+    <Label verticalAlignment="center" class="text-center font-weight-bold" text="¿Qué tal te pareció el proceso de reserva?"></Label>
+
+    <GridLayout height="60" borderRadius="5" backgroundColor="lightgray" class="m-t-20">
+        <ui:StarRating horizontalAlignment="center" verticalAlignment="center" id="rating" emptyBorderColor="white" emptyColor="white" filledBorderColor="black" filledColor="blue" value="{{value2}}" max="{{max}}" isindicator="false"></ui:StarRating>
+    </GridLayout>
+    <Label verticalAlignment="center" class="text-center font-weight-bold" text="¿Qué tal estuvo tu viaje?"></Label>
+    <Button class="btn btn-principal" text="Calificar servicio" (tap)="calificar()"></Button>
+</StackLayout>

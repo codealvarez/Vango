@@ -1,0 +1,62 @@
+<RadSideDrawer [drawerTransition]="sideDrawerTransition" gesturesEnabled="false">
+    <GridLayout tkDrawerContent rows="auto, *" class="sidedrawer sidedrawer-left">
+        <StackLayout row="0" class="sidedrawer-header">
+            <Label text="&#xf057;" class="fa text-right botonCerrar"  (tap)="cerrarDrawer()"></Label>
+            <Image src="~/images/usuario.png"  class="sidedrawer-header-image" ></Image>
+            <!-- <Label class="sidedrawer-header-image fa text-center" text="&#xf2bd;"></Label> -->
+            <Label class="sidedrawer-header-brand text-center" text="{{nombreUsuario}}"></Label>
+            <Label class="footnote text-center" text="{{emailUsuario}}"></Label>
+        </StackLayout>
+        <ScrollView row="1">
+            <StackLayout class="sidedrawer-content">
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Inicio')" (tap)="onNavItemTap('/home')">
+                    <Label col="0" text="&#xf015;" class="fa"></Label>
+                    <Label col="1" text="Inicio" class="p-r-10"></Label>
+                </GridLayout>
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Reservar')" (tap)="onNavItemTap('/disponibles')">
+                    <Label col="0" text="&#xf055;" class="fa"></Label>
+                    <Label col="1" text="Reservar" class="p-r-10"></Label>
+                </GridLayout>
+
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Reservas')" (tap)="onNavItemTap('/reservas')">
+                    <Label col="0" text="&#xf274;" class="fa"></Label>
+                    <Label col="1" text="Mis reservas activas" class="p-r-10"></Label>
+                </GridLayout>
+
+                <!-- <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Historial')" (tap)="onNavItemTap('/historial')">
+                    <Label col="0" text="&#xf1da;" class="fa"></Label>
+                    <Label col="1" text="Historial de reservas" class="p-r-10"></Label>
+                </GridLayout> -->
+
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Perfil')" (tap)="onNavItemTap('/perfil')">
+                    <Label col="0" text="&#xf007;" class="fa"></Label>
+                    <Label col="1" text="Mi perfil" class="p-r-10"></Label>
+                </GridLayout>
+
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Tarjetas')" (tap)="onNavItemTap('/tarjetas')">
+                    <Label col="0" text="&#xf09d;" class="fa"></Label>
+                    <Label col="1" text="Mis tarjetas de crédito" class="p-r-10"></Label>
+                </GridLayout>
+
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Ayuda')" (tap)="onNavItemTap('/ayuda')">
+                    <Label col="0" text="&#xf1cd;" class="fa"></Label>
+                    <Label col="1" text="Ayuda" class="p-r-10"></Label>
+                </GridLayout>
+
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Calificar')" (tap)="abrirPagina()">
+                    <Label col="0" text="&#xf0eb;" class="fa"></Label>
+                    <Label col="1" text="Sugerir ruta" class="p-r-10"></Label>
+                </GridLayout>
+    
+                <StackLayout class="hr-light"></StackLayout>
+
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Salir')" (tap)="salir()">
+                    <Label col="0" text="&#xf08b;" class="fa"></Label>
+                    <Label col="1" text="Cerrar sesión" class="p-r-10"></Label>
+                </GridLayout>
+            </StackLayout>
+        </ScrollView>
+    </GridLayout>
+
+    <page-router-outlet tkMainContent class="page page-content" xmlns:ui="nativescript-star-ratings"></page-router-outlet>
+</RadSideDrawer>

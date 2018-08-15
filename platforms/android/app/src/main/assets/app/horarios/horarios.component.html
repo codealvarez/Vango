@@ -1,0 +1,42 @@
+<ActionBar class="action-bar">
+	<NavigationButton text="Volver" android.systemIcon="ic_menu_back" (tap)="irAtras()"></NavigationButton>
+	<Label class="action-bar-title" [text]="'Horarios disponibles - '+nombreRuta"></Label>
+</ActionBar>
+
+<GridLayout rows="*"  width="100%" class="pageDisponibles">
+    <ListView  [items]="myItems" (itemTap)="onItemTap($event)" >
+	    <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+	        <StackLayout class="p-l-5 listaDisponibles">
+				<GridLayout columns="*,*,*,*,*,*" rows="*,*,*,*,*,*" class="p-l-10 p-t-10 itemLista m-b-5" [class.odd]="odd" [class.even]="even" >
+	            	<Label class="font-weight-bold nombreRuta text-center" col="0" row="0" colSpan="2" [text]='"@A"+item.idruta'></Label>
+	            	<Label class="text-center" col="0" row="1" colSpan="2" text="Inicio Ruta:"></Label>
+	            	<Label class="text-center horaRuta" col="0" row="2" colSpan="2" [text]='item.hora_viaje'></Label>
+
+	            	<Label class="text-center" col="0" row="3" colSpan="2" [text]='item.fecha_viaje'></Label>
+
+	            	<Label class="text-center precioViaje" col="0" row="4" colSpan="2" [text]='"$ "+item.precio'></Label>
+
+	            	
+
+	            	<Image src="~/images/bordeInterno.png" class="imagenBorde" row="0" col="2" rowSpan="4"></Image>
+	            	<Image src="~/images/puntos.png" class="imagenPuntos" row="0" col="2" rowSpan="3"></Image>
+	            	<Label class="font-weight-bold textoPuntos" col="3" row="0" colSpan="3" [text]="item.origen"></Label>
+	            	<Label class="font-weight-bold textoPuntos" col="3" row="2" colSpan="3" [text]="item.destino"></Label>
+
+	            	<Label col="3" row="4" colSpan="2" class="cuposLabel" text="Cupos disponibles:"></Label>
+	            	<Label col="5" row="4" colSpan="1" class="cuposText" [text]='item.disponibles'></Label>
+ 
+	            	
+
+	            	<Button col="0" row="5" colSpan="6" class="btn btn-principal btn-lista" id="button" text="Reservar" [nsRouterLink]="['/ruta/'+item.idruta+'/'+item.idviaje+'/'+item.precio+'/'+item.nombreruta]"></Button>
+
+	            	
+
+
+	            </GridLayout>
+	        </StackLayout> 
+	    </ng-template>
+	</ListView>
+	
+
+</GridLayout>	

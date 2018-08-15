@@ -1,0 +1,41 @@
+<ActionBar class="action-bar">
+	<NavigationButton text="Volver" android.systemIcon="ic_menu_back" (tap)="irAtras()"></NavigationButton> 
+    <Label class="action-bar-title" text="Reservar puestos"></Label>
+</ActionBar>
+
+<StackLayout class="page">
+	<Label text="Tu punto de recogida: " class="textoLabelRecogida" textWrap="true"></Label>
+	<Label [text]='direccion' class="text-center textoRecogida" textWrap="true"></Label>
+	<Label class="m-t-10 p-10 text-center bienvenida" textWrap="true" text="¿Cuantos puestos deseas reservar?"></Label>
+	<GridLayout class="m-15" columns="*,*,*,*,*,*" rows="auto,auto,auto,auto,*" >
+	    
+	    <StackLayout class="btn-img"  orientation="horizontal" row="0" col="0" rowSpan="2" (tap)="disminuir()" >
+		   <Image  src="~/images/btn_menos.png"  width="100%" height="100%"></Image>
+		</StackLayout>
+
+	    <Label row="0" col="1" rowSpan="2" [text]="pasajeros" class="text-center font-weight-bold cantidadPasajeros"></Label>
+
+	    <StackLayout class="btn-img"  orientation="horizontal" row="0" col="2" rowSpan="2" (tap)="aumentar()" >
+		   <Image  src="~/images/btn_mas.png"  width="100%" height="100%"></Image>
+		</StackLayout>
+
+	    
+	    <Label row="0" col="3" colSpan="3" text="Total a pagar:" class="text-center font-weight-bold valorPagarLabel"></Label>
+	    <Label row="1" col="3" colSpan="3" [text]="valorTotal | currency:'COP':'symbol'" class="text-center font-weight-bold valorPagar"></Label>
+
+	    <Button visibility="{{ textoBoton != 'RESERVAR' ? 'visible' : 'collapsed' }}" row="2" col="0" colSpan="6" text="{{tarjeta}}" (tap)="displayActionDialog()" class="btn btn-secundario"></Button>
+	    <Button [text]="textoBoton" (tap)="pagar()" row="3" col="0" colSpan="6" class="btn btn-principal"></Button>
+
+	    <MapView #mapView row="4" col="0" colSpan="6" [latitude]="latitude" [longitude]="longitude"
+             [zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom" [bearing]="bearing"
+             [tilt]="tilt" i-padding="50,50,50,50" [padding]="padding" (mapReady)="onMapReady($event)"
+             (markerSelect)="onMarkerEvent($event)" (markerBeginDragging)="onMarkerEvent($event)"
+             (markerEndDragging)="onMarkerEvent($event)" (markerDrag)="onMarkerEvent($event)"
+             (markerInfoWindowTapped)="onMarkerEvent($event)" (coordinateTapped)="onCoordinateTapped($event)"
+             (cameraChanged)="onCameraChanged($event)"></MapView>
+	    
+	</GridLayout>
+	
+
+
+</StackLayout>

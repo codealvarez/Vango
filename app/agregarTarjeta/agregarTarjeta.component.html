@@ -1,0 +1,22 @@
+<ActionBar class="action-bar">
+    <NavigationButton text="Volver" android.systemIcon="ic_menu_back" (tap)="irAtras()"></NavigationButton> 
+    <Label class="action-bar-title" text="Agregar tarjeta"></Label>
+</ActionBar>
+<StackLayout class="page p-t-15">
+	<Label class="text-center p-y-5" text="{{franquicia}}"></Label>
+	<GridLayout columns="*,*,*,*" rows="auto" class="p-b-10">
+		<Image (tap)="seleccionarFranquicia('2')" src="~/images/mastercard.jpg" class="imagenTarjeta" row="0" col="0" width="100%"></Image>
+		<Image (tap)="seleccionarFranquicia('1')" src="~/images/visa.jpg" class="imagenTarjeta" row="0" col="1" width="100%"></Image>
+		<Image (tap)="seleccionarFranquicia('3')" src="~/images/amex.jpg" class="imagenTarjeta" row="0" col="2" width="100%"></Image>
+		<Image (tap)="seleccionarFranquicia('4')" src="~/images/diners.jpg" class="imagenTarjeta" row="0" col="3" width="100%"></Image>
+	</GridLayout>
+	
+	<MaskedTextField class="m-t-10 m-b-10 m-l-15 m-r-15" mask="0000-0000-0000-0000" [(ngModel)]="numero" hint="Número de la tarjeta" keyboardType="phone" required visibility="{{ idFranquicia != '0' ? 'visible' : 'collapsed' }}"></MaskedTextField>
+
+	<MaskedTextField class="m-t-10 m-b-10 m-l-15 m-r-15" mask="00/00" [(ngModel)]="fecha" hint="Fecha de vencimiento MM/AA - Ej: 02/20" keyboardType="phone" visibility="{{ numero ? 'visible' : 'collapsed' }}"></MaskedTextField>
+
+    <MaskedTextField class="m-t-10 m-b-10 m-l-15 m-r-15" mask="000" hint="Código de seguridad" keyboardType="phone" [(ngModel)]="cvv" visibility="{{ fecha ? 'visible' : 'collapsed' }}"></MaskedTextField>
+    
+ 
+    <Button class="btn btn-primary" text="AGREGAR TARJETA" (tap)="agregarTarjeta()" visibility="{{ idFranquicia != '0' && numero && fecha && cvv ? 'visible' : 'collapsed' }}"></Button>
+</StackLayout>

@@ -1,6 +1,7 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
+import { GridViewModule } from 'nativescript-grid-view/angular';
 
 import { HorariosRoutingModule } from "./horarios-routing.module";
 import { HorariosComponent } from "./horarios.component";
@@ -9,7 +10,8 @@ import { HorariosComponent } from "./horarios.component";
     imports: [
         NativeScriptCommonModule,
         HorariosRoutingModule,
-        NativeScriptFormsModule
+        NativeScriptFormsModule,
+        GridViewModule
     ],
     declarations: [
         HorariosComponent

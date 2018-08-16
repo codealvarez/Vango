@@ -31,7 +31,7 @@ export class WebService {
             console.log(JSON.stringify(paradas[i]));
             
         }
-        
+         
         var serverUrl = "https://maps.googleapis.com/maps/api/directions/json?origin="+lat+","+lon+"&destination="+lat2+","+lon2+"&waypoints="+waypoints+"&key="+key;
         //var serverUrl = "https://maps.googleapis.com/maps/api/directions/json?origin=4.7014128,-74.1466856&destination=4.6765584,-74.0536666&waypoints=via:Ricaurte,Bogot%C3%A1&key=AIzaSyD-eKkwCJy0RbyZXBQSOxIWwY6U89Q1uU0";
         console.log('Recibidos - Lat:'+lat+' - Lon: '+lon);

@@ -20,6 +20,8 @@ import {LoadingIndicator} from "nativescript-loading-indicator";
 import { WebService } from "../ws.service";
 import * as ApplicationSettings from "application-settings";
 import * as appversion from "nativescript-appversion";
+import {Color} from 'color';
+import * as pl from 'google-polyline';
 let loader = new LoadingIndicator();
 
 /* ***********************************************************
@@ -41,13 +43,15 @@ export class HomeComponent implements OnInit {
     latitude=4.587799; //Colombia4.587799, -73.940960
     //latitude:number; //Colombia4.587799, -73.940960
     longitude=-73.940960; //Clombia
-    zoom = 18
+    zoom = 12
     minZoom = 0; 
     maxZoom = 22;
     bearing = 0;
     tilt = 0;
     padding = [40, 40, 40, 40];
     mapView: MapView;
+    marker:Marker;
+    rutas = [];
     styles=[
     {
         "featureType": "all",
@@ -387,22 +391,50 @@ export class HomeComponent implements OnInit {
             console.log("Your app's version code is: " + v);
             alert('Versión de app: '+v); 
         });*/
+        let model = this;
         if(!ApplicationSettings.getString('tokenPush')){
             firebase.getCurrentPushToken().then((token: string) => {
                 // may be null if not known yet
                 //alert("Current push token: " + token);
                 ApplicationSettings.setString('tokenPush',token);
                 loader.show();
-                this.myService.registrarToken(token,this.idPasajero)
+                model.myService.registrarToken(token,model.idPasajero)
                 .subscribe((result) => {
-                    this.onGetDataSuccess(result);
+                    model.onGetDataSuccess(result);
                 }, (error) => {
-                    this.onGetDataError(error);
+                    model.onGetDataError(error);
                 });
             });
         }
+
+        model.myService.getRutasDisponibles(null)
+            .subscribe((result) => {
+            console.log('Resultado de mensajes');
+            console.log(result);
+            for(let i = 0; i <Object.keys(result).length; i++) {
+                console.log('Pintando a:');
+                console.log(result[i]); // "species"
+
+                model.rutas.push(result[i]);  
+                console.log(model.rutas);
+                model.dibujarRuta(result[i].latorigen*1,result[i].lonorigen*1,result[i].latdestino*1,result[i].londestino*1,[])
+
+            }
+        }, (error) => {
+            model.onGetDataError(error);
+        });
         
 
+    }
+    dibujarRuta(lat,lon,lat2,lon2,paradas) {
+        console.log('Dibujando rutica');
+        loader.show();
+        this.myService.getData(lat,lon,lat2,lon2,paradas)
+            .subscribe((result) => {
+                this.resultadoRutas(result);
+            }, (error) => {
+                this.onGetDataError(error);
+            });
     }
     onGetDataSuccess(res) {
         loader.hide();
@@ -412,6 +444,37 @@ export class HomeComponent implements OnInit {
         
         
 
+    }
+    resultadoRutas(res){
+        console.log('Resultado de getData');
+        console.log(res);
+        loader.hide();
+        
+        const map = this.mapView;
+        const model = this;
+
+        let list = pl.decode(res.routes[0].overview_polyline.points);
+        let line = new Polyline();
+        line.visible = true;
+        line.width = 4;
+        let materialColors = [
+            { color: '#B41540' }, { color: '#55AF14' }, { color: '#108659' }, 
+            { color: '#C74E17' }, { color: '#87107D' }, { color: '#F9B741' },
+            { color: '#580551' }, { color: '#812D08' }, { color: '#DA4970' },
+        ];
+
+        line.color = new Color(materialColors[Math.floor(Math.random() * materialColors.length)].color);
+        line.geodesic = true;
+        line.clickable=true;
+        //line.userData.
+
+        for (var i = 0; i < list.length; i++) {
+            line.addPoint(Position.positionFromLatLng(list[i][0],list[i][1]));
+        }
+
+        map.addPolyline(line);
+
+        loader.hide();
     }
 
     private onGetDataError(error: Response | any) {
@@ -541,28 +604,32 @@ export class HomeComponent implements OnInit {
     setMarcador(lat,lon,tipo,id){
         let model = this;
         console.log('Pintando marcador: '+lat+' - '+lon+' - '+tipo);
-        var marker = new Marker();
-        const image = new ImageModule.Image();
-        image.width=20; 
-        image.height=20; 
-        if(tipo == 'inicio'){
-            image.imageSource = imageSource.fromResource('inicio');  
-            marker.title = "Punto de inicio";
-        }else if(tipo == 'fin'){
-            image.imageSource = imageSource.fromResource('fin');
-            marker.title = "Punto final";
-        }else if(tipo == 'pasajero'){
-            marker.title = "Tu ubicación";  
-            image.imageSource = imageSource.fromResource('pasajero');
-            
-        } 
+        if(model.marker){
+            model.marker.position = Position.positionFromLatLng(lat, lon);
+        }else{
+            model.marker = new Marker();
+            const image = new ImageModule.Image();
+            image.width=20; 
+            image.height=20; 
+            if(tipo == 'inicio'){
+                image.imageSource = imageSource.fromResource('inicio');  
+                model.marker.title = "Punto de inicio";
+            }else if(tipo == 'fin'){
+                image.imageSource = imageSource.fromResource('fin');
+                model.marker.title = "Punto final";
+            }else if(tipo == 'pasajero'){
+                model.marker.title = "Tu ubicación";  
+                image.imageSource = imageSource.fromResource('dino');
+            } 
 
+            
+            model.marker.position = Position.positionFromLatLng(lat, lon);
+            model.marker.icon=image;
+            model.marker.snippet = 'Descripción del punto';
+            model.marker.userData = {index: 1,id: id};
+            model.mapView.addMarker(model.marker); 
+        }
         
-        marker.position = Position.positionFromLatLng(lat, lon);
-        marker.icon=image;
-        marker.snippet = 'Descripción del punto';
-        marker.userData = {index: 1,id: id};
-        model.mapView.addMarker(marker); 
     }
     onCoordinateTapped(args) {
 

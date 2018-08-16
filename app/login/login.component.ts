@@ -102,7 +102,7 @@ export class LoginComponent implements OnInit {
         loader.hide();
         if(res.resultado == 'OK'){
             //MixpanelHelper.track('LoginExitoso','OK');
-            dialogs.alert({
+            /*dialogs.alert({
                 title: "Bienvenido!",
                 message: "Hola "+res.nombre+", bienvenido nuevamente a Vango",
                 okButtonText: 'Gracias!'
@@ -117,7 +117,15 @@ export class LoginComponent implements OnInit {
                     this.routerExtensions.navigate(["/home"]);
                 }, 1000);
                 
-            });
+            });*/
+            ApplicationSettings.setBoolean("authenticated", true);
+            ApplicationSettings.setString("nombreUsuario",res.nombre);
+            ApplicationSettings.setString("idUsuario",res.idpasajero);
+            ApplicationSettings.setString("emailUsuario",res.mail);
+            ApplicationSettings.setString("idmember",res.idmodipay);
+            setTimeout(() => {
+                this.routerExtensions.navigate(["/home"]);
+            }, 200);
             
         }else{ 
             //MixpanelHelper.track('LoginErroneo','OK');

@@ -1,6 +1,7 @@
 <RadSideDrawer [drawerTransition]="sideDrawerTransition" gesturesEnabled="false">
     <GridLayout tkDrawerContent rows="auto, *" class="sidedrawer sidedrawer-left">
-        <StackLayout row="0" class="sidedrawer-header" [nsRouterLink]="['/perfil']">
+        <StackLayout row="0" class="sidedrawer-header">
+            <Label text="&#xf057;" class="fa text-right botonCerrar"  (tap)="cerrarDrawer()"></Label>
             <Image src="~/images/usuario.png"  class="sidedrawer-header-image" ></Image>
             <!-- <Label class="sidedrawer-header-image fa text-center" text="&#xf2bd;"></Label> -->
             <Label class="sidedrawer-header-brand text-center" text="{{nombreUsuario}}"></Label>

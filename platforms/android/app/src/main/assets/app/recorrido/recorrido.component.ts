@@ -527,7 +527,7 @@ export class RecorridoComponent implements OnInit {
         let line = new Polyline();
         line.visible = true;
         line.width = 4;
-        line.color = new Color('#153d7a');
+        line.color = new Color('#027a69');
         line.geodesic = true;
         line.clickable=true;
 

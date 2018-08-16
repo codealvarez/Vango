@@ -519,36 +519,39 @@ export class ViajeComponent implements OnInit {
             inputType: dialogs.inputType.text
         }).then(function (r) {
             console.log("Dialog result: " + r.result + ", text: " + r.text);
-            if(model.tokensCunductor.length > 0){
-                model.myService.enviarPush(model.tokensCunductor,encodeURI(r.text))
-                .subscribe((result2) => {
-                    console.log('Resultado del push');
-                    //console.log(result2);
+            if(r.result){
+                if(model.tokensCunductor.length > 0){
+                    model.myService.enviarPush(model.tokensCunductor,encodeURI(r.text))
+                    .subscribe((result2) => {
+                        console.log('Resultado del push');
+                        //console.log(result2);
+                        dialogs.alert({
+                            title: "Mensaje enviado",
+                            message: "Tu mensaje fue enviado exitosamente al conductor.",
+                            okButtonText: "Ok"
+                        }).then(() => {
+                            console.log("Dialog closed!");
+                        });
+                    }, (error) => {
+                        dialogs.alert({
+                            title: "Mensaje fallido",
+                            message: "Tu mensaje no pudo ser entregado. Intenta de nuevo por favor.",
+                            okButtonText: "Ok"
+                        }).then(() => {
+                            console.log("Dialog closed!");
+                        });
+                    });
+                }else{
                     dialogs.alert({
-                        title: "Mensaje enviado",
-                        message: "Tu mensaje fue enviado exitosamente al conductor.",
+                        title: "Error conductor",
+                        message: "Tu mensaje no pudo ser entregado. El conductor no tiene dispositivos asignados",
                         okButtonText: "Ok"
                     }).then(() => {
                         console.log("Dialog closed!");
                     });
-                }, (error) => {
-                    dialogs.alert({
-                        title: "Mensaje fallido",
-                        message: "Tu mensaje no pudo ser entregado. Intenta de nuevo por favor.",
-                        okButtonText: "Ok"
-                    }).then(() => {
-                        console.log("Dialog closed!");
-                    });
-                });
-            }else{
-                dialogs.alert({
-                    title: "Error conductor",
-                    message: "Tu mensaje no pudo ser entregado. El conductor no tiene dispositivos asignados",
-                    okButtonText: "Ok"
-                }).then(() => {
-                    console.log("Dialog closed!");
-                });
+                }
             }
+            
         });
         /*dialogs.action({
             message: "Envía un mensaje al conductor",

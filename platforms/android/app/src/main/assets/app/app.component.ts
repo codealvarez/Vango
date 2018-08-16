@@ -78,6 +78,10 @@ export class AppComponent implements OnInit{
         const sideDrawer = <RadSideDrawer>app.getRootView();
         sideDrawer.closeDrawer();
     }
+    cerrarDrawer():void{
+        const sideDrawer = <RadSideDrawer>app.getRootView();
+        sideDrawer.closeDrawer();
+    }
     salir():void{
         dialogs.confirm({
             title: "Salir",

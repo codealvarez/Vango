@@ -122,6 +122,12 @@
     font-size:12;
     color:#1A1A1A;
 }
+.imagenReserva{
+    margin:5;
+}
+.btnVerReserva{
+    margin-left:0;
+}
 .nombreRutaDisponible{
     font-size:13;
     vertical-align:center;
@@ -333,7 +339,7 @@ $sidedrawer-list-icon-size: 20;
     height: 70;
     width: 70; /// this is required on iOS - Android does not require width so you might need to adjust styles 
     margin: 15;
-    background-color: $botonSecundario;
+    background-color: #b41642;
     horizontal-align: right; 
     vertical-align: bottom; 
 }

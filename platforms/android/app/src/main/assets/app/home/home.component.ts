@@ -553,8 +553,7 @@ export class HomeComponent implements OnInit {
             marker.title = "Punto final";
         }else if(tipo == 'pasajero'){
             marker.title = "Tu ubicación";  
-            image.imageSource = imageSource.fromResource('pasajero');
-            
+            image.imageSource = imageSource.fromResource('dino');
         } 
 
         

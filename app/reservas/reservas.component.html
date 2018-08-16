@@ -50,16 +50,19 @@
 	            	</GridLayout>
 
 	            	<!-- Dirección -->
-	            	<GridLayout col="2" row="0" columns="auto,auto" rows="auto" horizontalAlignment="center" class="p-l-5">
-	            		<Label col="0" row="0" text="&#xf041;" class="fa"></Label>
-	            		<Label col="1" row="0" class="text-center p-t-5 m-l-2"  [text]='item.direccion' textWrap="true"></Label>
-	            	</GridLayout>
+	            	<!-- <Label col="2" row="0" colSpan="2" class="text-center p-t-5 m-l-2"  [text]='item.direccion' textWrap="true"></Label> -->
+	            	<GridLayout col="2" row="0" colSpan="2" columns="auto,*" rows="auto" >
+	            		<Label col="0" row="0" text="&#xf041;" class="fa m-l-10 m-r-5"></Label>
+	            		<Label col="1" row="0" [text]='item.direccion' textWrap="true"></Label>
+	            	</GridLayout> 
 
 	            	<!-- Pasajeros -->
-	            	<GridLayout col="2" row="1" columns="auto,auto" rows="auto" horizontalAlignment="center" class="p-l-5">
+	            	<GridLayout col="2" row="1" columns="auto,auto" rows="auto" horizontalAlignment="left" class="p-l-5">
 	            		<Label col="0" row="0" text="&#xf0c0;" class="fa"></Label>
 	            		<Label class="text-center p-t-4 m-l-2 p-r-10" col="1" row="0" [text]='item.pasajes' textWrap="true"></Label>
 	            	</GridLayout>
+
+	            	<Button col="2" row="2" colSpan="2" class="btn btn-principal btnVerReserva" text="Ver reserva" [nsRouterLink]="['/viaje/'+item.idruta+'/'+item.idviaje+'/'+item.placa+'/'+item.idconductor]"></Button>
 
 	            	<!-- Botones -->
 	            	<!-- <GridLayout col="2" row="2" colSpan="2" columns="*,*" rows="auto" horizontalAlignment="center" class="p-l-5">

@@ -10,12 +10,13 @@
 	<StackLayout row="0" class="p-20" (loaded)="onSearchLayoutLoaded($event)"> 
 		<SearchBar hint="Busca por barrio o lugar" [text]="searchPhrase" (clear)="onClear($event)" (textChange)="onTextChanged($event)" (submit)="onSubmit($event)" (loaded)="onSearchBarLoaded($event)"
 	        color="gray" textFieldBackgroundColor="white" textFieldHintColor="gray" class="m-b-5"></SearchBar>
-        <Label class="text-center textoNoRutas" text="No existen rutas que coincidan con tu búsqueda" textWrap="true" visibility="{{ myItems.length == 0 ? 'visible' : 'collapsed' }}"></Label>
+        <!-- <Label class="text-center textoNoRutas" text="No existen rutas que coincidan con tu búsqueda" textWrap="true" visibility="{{ myItems.length == 0 ? 'visible' : 'collapsed' }}"></Label> -->
+        <!-- <Label class="text-center textoNoRutas" text="No existen rutas que coincidan con tu búsqueda" textWrap="true" *ngIf="encontrados"></Label> -->
     </StackLayout>
 
     
 
-    <ListView  [items]="myItems" (itemTap)="onItemTap($event)" row="1">
+    <ListView  [items]="myItems" row="1">
 	    <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
 	        <StackLayout class="p-l-5 listaDisponibles">
 				<GridLayout columns="*,*,*,*,*,*" rows="*,*,*,*" class="p-l-10 p-t-10 itemLista m-b-5" [class.odd]="odd" [class.even]="even" >

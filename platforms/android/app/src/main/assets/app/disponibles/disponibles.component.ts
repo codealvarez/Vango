@@ -30,6 +30,7 @@ export class DisponiblesComponent implements OnInit {
     public arrayItems= new observableArray.ObservableArray([]);
     private counter: number;
     public searchPhrase:string;
+    public encontrados:boolean = false;
 
     constructor(private routerExtensions: RouterExtensions,private myService: WebService) {
         /*this.myItems = [];
@@ -41,6 +42,7 @@ export class DisponiblesComponent implements OnInit {
     }
 
     public onSubmit(args) {
+        let model = this;
         let searchBar = <SearchBar>args.object;
         let searchValue = searchBar.text.toLowerCase();
 
@@ -55,16 +57,28 @@ export class DisponiblesComponent implements OnInit {
                 
             } 
         }
+        if(model.myItems.length > 0){
+            model.encontrados=true;
+        }else{
+            model.encontrados=false;
+        }
     }
     onClear(args){
+        let model = this;
         let searchBar = <SearchBar>args.object;
         searchBar.text = "";
         searchBar.hint = "Busca por barrio o lugar";
 
-        this.myItems = new observableArray.ObservableArray([]);
-        this.arrayItems.forEach(item => {
-            this.myItems.push(item);
+        model.myItems = new observableArray.ObservableArray([]);
+        model.arrayItems.forEach(item => {
+            model.myItems.push(item);
         });
+
+        if(model.myItems.length > 0){
+            model.encontrados=true;
+        }else{
+            model.encontrados=false;
+        }
 
     }
     onSearchLayoutLoaded(event) {
@@ -93,6 +107,7 @@ export class DisponiblesComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        let model = this;
         let idUsuario = ApplicationSettings.getString('idUsuario');
         loader.show();
         this.myService.getRutasDisponibles(idUsuario).subscribe((res) => {
@@ -103,6 +118,12 @@ export class DisponiblesComponent implements OnInit {
                 this.arrayItems.push(res[i]); 
                 this.myItems.push(res[i]); 
             }
+            if(model.myItems.length > 0){
+                model.encontrados=true;
+            }else{
+                model.encontrados=false;
+            }
+
 
             
         }, (error) => {

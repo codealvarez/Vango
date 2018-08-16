@@ -11,6 +11,7 @@
 </ActionBar>
 
 <GridLayout>
+
 	<MapView #mapView [latitude]="latitude" [longitude]="longitude"
              [zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom" [bearing]="bearing"
              [tilt]="tilt" i-padding="50,50,50,50" [padding]="padding" (mapReady)="onMapReady($event)"
@@ -18,6 +19,10 @@
              (markerEndDragging)="onMarkerEvent($event)" (markerDrag)="onMarkerEvent($event)"
              (markerInfoWindowTapped)="onMarkerEvent($event)" (coordinateTapped)="onCoordinateTapped($event)"
              (cameraChanged)="onCameraChanged($event)"></MapView>
-	<FAB (tap)="nuevaReserva()" icon="res://lista" rippleColor="#f1f1f1" class="fab-button"></FAB>
-  <FAB (tap)="verPagos()" icon="res://billetera" rippleColor="#f1f1f1" class="fab-button2"></FAB>
+	<!-- <FAB (tap)="nuevaReserva()" icon="res://lista" rippleColor="#f1f1f1" class="fab-button"></FAB> -->
+  <!-- <FAB (tap)="verPagos()" icon="res://billetera" rippleColor="#f1f1f1" class="fab-button2"></FAB> -->
+  <StackLayout columns="auto, auto" orientation="horizontal" class="botonAbajoDerecha">
+        <Image (tap)="nuevaReserva()"  src="~/images/rutas.png" class="botonRutas"></Image>
+        <!-- <Label text="Agregar"></Label> -->
+  </StackLayout>
 </GridLayout> 

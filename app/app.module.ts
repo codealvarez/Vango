@@ -4,6 +4,7 @@ import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angul
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+import { LOCALE_ID } from '@angular/core';
 
 //Importar HTTPClient para usar el WS
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
@@ -15,6 +16,11 @@ declare var GMSServices: any;
 if (platform.isIOS) { 
   GMSServices.provideAPIKey("AIzaSyBw13TAYsGCkJKhARjx9F70ymnIt_OnRXU");
 } 
+
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/es';
+
+registerLocaleData(localeFr, 'es-CO');
 
 @NgModule({
     bootstrap: [
@@ -32,6 +38,9 @@ if (platform.isIOS) {
     schemas: [
         NO_ERRORS_SCHEMA
     ],
-    providers:[WebService]
+    providers:[
+        WebService,
+        { provide: LOCALE_ID, useValue: "es-CO" }
+    ]
 })
 export class AppModule { }

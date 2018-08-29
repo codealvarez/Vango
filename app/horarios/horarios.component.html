@@ -6,13 +6,15 @@
 <GridLayout rows="auto,auto,*,*"  width="100%" class="pageDisponibles">
 	<Label row="0" class="aclaracion text-center p-10" text="Recuerda que estos horarios son la hora exacta de partida de la van desde el punto de inicio" textWrap="true"></Label>
 	
-	<StackLayout row="1" class="subtituloVista">
+	<StackLayout row="1" class="subtituloVista3">
         <Label class="text-center" [text]="nombreRuta"></Label>
     </StackLayout>
 	<GridView row="2" [items]="myItems" colWidth="30%" rowHeight="100">
 		<ng-template let-item="item" let-odd="odd">
 		  <StackLayout margin="10" [nsRouterLink]="['/ruta/'+item.idruta+'/'+item.idviaje+'/'+item.precio+'/'+item.nombreruta]"  borderRadius="5" verticalAlignment="stretch" class="list-group-item" [class.odd]="odd" backgroundColor="#a5163d">
 		  	<Label horizontalAlignment="center" text="&#xf017;" class="fa iconoReloj"></Label>
+		    <Label verticalAlignment="center" [text]="item.fecha_viaje | date: 'EEEE' | titlecase" class="itemFecha text-center" textWrap="true"></Label>
+		    <Label verticalAlignment="center" [text]="item.fecha_viaje | date: 'MMM d'" class="itemDiaMes text-center" textWrap="true"></Label>
 		    <Label verticalAlignment="center" [text]="item.hora_viaje" class="itemHorario text-center" textWrap="true"></Label>
 		  </StackLayout>
 		</ng-template>

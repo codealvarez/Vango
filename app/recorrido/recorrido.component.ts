@@ -60,6 +60,7 @@ export class RecorridoComponent implements OnInit {
     vehiculo:any;
     van:Marker;
     timeout:any;
+    recorrido:boolean=false;
 
     styles=[
     {
@@ -452,8 +453,10 @@ export class RecorridoComponent implements OnInit {
             console.log(JSON.stringify(model.paradas));
             
            
-
-            model.dibujarRuta(model.latInicial,model.lonInicial,model.latFinal,model.lonFinal,model.paradas);
+            if(!model.recorrido){ 
+                model.dibujarRuta(model.latInicial,model.lonInicial,model.latFinal,model.lonFinal,model.paradas);    
+            }
+            
             loader.hide();
             
 
@@ -506,6 +509,7 @@ export class RecorridoComponent implements OnInit {
     }
 
     dibujarRuta(lat,lon,lat2,lon2,paradas) {
+        this.recorrido = true;
         loader.show();
         this.myService.getData(lat,lon,lat2,lon2,paradas)
             .subscribe((result) => {

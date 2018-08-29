@@ -769,6 +769,52 @@ export class ViajeComponent implements OnInit {
                 this.onGetDataError(error);
             });
     }
+    checkIn(){
+        let model = this;
+        dialogs.confirm({
+            title: "Check-In Viaje",
+            message: "¿Deseas hacer Check-in en este viaje?",
+            okButtonText: "Check-In",
+            cancelButtonText: "Cancelar",
+            //neutralButtonText: "Neutral text",
+            //defaultText: "Default text",
+        }).then(function (r) {
+            if(r){
+                if(model.tokensCunductor.length > 0){
+                    let nombres = ApplicationSettings.getString('nombreUsuario');
+                    model.myService.enviarPush(model.tokensCunductor,encodeURI(nombres+' se ha subido a la van'))
+                    .subscribe((result2) => {
+                        console.log('Resultado del push');
+                        //console.log(result2);
+                        dialogs.alert({
+                            title: "Listo",
+                            message: "Check-In realizado exitosamente",
+                            okButtonText: "Ok"
+                        }).then(() => {
+                            console.log("Dialog closed!");
+                        });
+                    }, (error) => {
+                        dialogs.alert({
+                            title: "Check-In fallido",
+                            message: "El check-in no pudo ser realizado. Intenta de nuevo por favor.",
+                            okButtonText: "Ok"
+                        }).then(() => {
+                            console.log("Dialog closed!");
+                        });
+                    });
+                }else{
+                    dialogs.alert({
+                        title: "Error conductor",
+                        message: "Tu mensaje no pudo ser entregado. El conductor no tiene dispositivos asignados",
+                        okButtonText: "Ok"
+                    }).then(() => {
+                        console.log("Dialog closed!");
+                    });
+                }
+            }
+            
+        });
+    }
 
     onGetDataSuccess(res) {
         this.encodedPoints = pl.decode(res.routes[0].overview_polyline.points);

@@ -29,6 +29,16 @@
     color:#ffffff;
     margin-top:2;
 }
+.itemFecha{
+    color:#ffffff;
+    margin-top:2;
+    font-size:11;
+}
+.itemDiaMes{
+    color:#ffffff;
+    margin-top:1;
+    font-size:10;
+}
 .fa {
     font-family: "FontAwesome";
 }
@@ -246,6 +256,27 @@
     padding-left:8;
     margin-top:4;
 }
+.subtituloVista2{
+    horizontal-align: center;
+    vertical-align: top;
+    background: #808285;
+    color:#ffffff;
+    border-radius:4;
+    padding:8;
+    padding-left:8;
+    margin-top:4;
+}
+.subtituloVista3{
+    horizontal-align: center;
+    vertical-align: top;
+    background: #a5163d;
+    color:#ffffff;
+    border-radius:4;
+    padding:8;
+    padding-left:8;
+    margin-top:4;
+}
+
 .tituloRuta{
     background: linear-gradient(to bottom, #a800ca, #72009e);
     color:#ffffff;
@@ -271,7 +302,7 @@ ActionBar .action-bar-title {
 
  // Drawer navigation custom styles
 $sidedrawer-header-image-size: 60;
-$sidedrawer-header-image-offset-top: 20;
+$sidedrawer-header-image-offset-top: 1;
 $sidedrawer-header-image-offset-bottom: 5;
 $sidedrawer-list-item-offset-left: 15;
 $sidedrawer-list-icon-offset: 10;

@@ -26,7 +26,7 @@
          (markerEndDragging)="onMarkerEvent($event)" (markerDrag)="onMarkerEvent($event)"
          (markerInfoWindowTapped)="onMarkerEvent($event)" (coordinateTapped)="onCoordinateTapped($event)"
          (cameraChanged)="onCameraChanged($event)"></MapView>
-    <StackLayout class="subtituloVista">
+    <StackLayout class="subtituloVista2">
         <GridLayout columns="auto,auto,auto" rows="auto">
             <Image col="0" src="~/images/ubicar.png"  width="30" class="imagenReserva" (tap)="ubicar()"></Image>
             <Image col="1" src="~/images/ubicar_van.png"  width="30" class="imagenReserva" (tap)="ubicarVan()"></Image>
@@ -34,7 +34,7 @@
         </GridLayout>
     </StackLayout>
     <StackLayout columns="auto, auto" orientation="horizontal" width="95%" class="abajoVista">
-        <Button row="1" class="btn btn-secundario btn-completo" text="Check-In"></Button>
+        <Button row="1" class="btn btn-secundario btn-completo" (tap)="checkIn()" text="Check-In"></Button>
     </StackLayout> 
 
 </GridLayout>

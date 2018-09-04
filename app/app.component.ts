@@ -33,19 +33,33 @@ export class AppComponent implements OnInit{
             // see their respective docs.
             onMessageReceivedCallback: (message: any) => {
               console.log('PUSH recibida');
-              console.log(JSON.stringify(message)); 
-              dialogs.action({
+              console.log(JSON.stringify(message));
+              if(message.data.text=='FINALIZADO'){
+                  dialogs.action({
                     //title: message.data.titulo,
                     message: 'El contuctor de tu viaje ha cambiado el estado a: '+message.data.text,
                     //message:'Tienes una notificación',
-                    cancelButtonText: "Cancelar",
-                    actions: ["Ver viaje"]
+                    cancelButtonText: "Entendido",
+                    actions: ["Listo"]
                 }).then(result => {
                     console.log("Dialog closed!");
-                    if(result != 'Cancelar'){
-                        this.routerExtensions.navigate(["/viaje/"+message.data.idRuta+"/"+message.data.idViaje+"/"+message.data.placa+"/"+message.data.idConductor]);
-                    }
+                    this.routerExtensions.navigate(["/historial"]);
                 });
+              }else{
+                  dialogs.action({
+                    //title: message.data.titulo,
+                        message: 'El contuctor de tu viaje ha cambiado el estado a: '+message.data.text,
+                        //message:'Tienes una notificación',
+                        cancelButtonText: "Cancelar",
+                        actions: ["Ver viaje"]
+                    }).then(result => {
+                        console.log("Dialog closed!");
+                        if(result != 'Cancelar'){
+                            this.routerExtensions.navigate(["/viaje/"+message.data.idRuta+"/"+message.data.idViaje+"/"+message.data.placa+"/"+message.data.idConductor]);
+                        }
+                    });
+              }
+              
               
             }
             

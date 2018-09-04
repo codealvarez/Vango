@@ -455,6 +455,7 @@ export class RecorridoComponent implements OnInit {
            
             if(!model.recorrido){ 
                 model.dibujarRuta(model.latInicial,model.lonInicial,model.latFinal,model.lonFinal,model.paradas);    
+                model.recorrido=true;
             }
             
             loader.hide();

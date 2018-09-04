@@ -38,12 +38,12 @@
 
 	            	<Button col="3" row="4" colSpan="3" class="btn btn-principal btn-lista" id="button" text="Ver horarios" [nsRouterLink]="['/ruta/'+item.idruta+'/'+item.idviaje+'/'+item.precio+'/'+item.nombreruta]"></Button> -->
 
-	            	<Label class="font-weight-bold nombreRuta text-center" col="0" row="0" colSpan="2" rowSpan="3" [text]='"@A"+item.idruta'></Label>
+	            	<Label class="font-weight-bold nombreRuta text-center" col="0" row="0" colSpan="3" rowSpan="3" [text]='item.nombreruta' textWrap="true"></Label>
 
-	            	<Image src="~/images/bordeInterno.png" class="imagenBorde" row="0" col="2" rowSpan="3"></Image>
-	            	<Image src="~/images/puntos.png" class="imagenPuntos" row="0" col="2" rowSpan="3"></Image>
-	            	<Label class="font-weight-bold textoPuntos" col="3" row="0" colSpan="3" [text]="item.origen"></Label>
-	            	<Label class="font-weight-bold textoDestino" col="3" row="2" colSpan="3" [text]="item.destino"></Label>
+	            	<Image src="~/images/bordeInterno.png" class="imagenBorde" row="0" col="3" rowSpan="3"></Image>
+	            	<Image src="~/images/puntos.png" class="imagenPuntos" row="0" col="3" rowSpan="3"></Image>
+	            	<Label class="font-weight-bold textoPuntos" col="4" row="0" colSpan="3" [text]="item.origen"></Label>
+	            	<Label class="font-weight-bold textoDestino" col="4" row="2" colSpan="3" [text]="item.destino"></Label>
  
 	            	<Button col="0" row="3" colSpan="3" class="btn btn-secundario btn-lista" text="Ver recorrido" [nsRouterLink]="['/recorrido/'+item.idruta+'/'+item.idviaje+'/'+item.nombreruta]"></Button>
 

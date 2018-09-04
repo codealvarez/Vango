@@ -20,13 +20,14 @@
 
                 <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Reservas')" (tap)="onNavItemTap('/reservas')">
                     <Label col="0" text="&#xf274;" class="fa"></Label>
-                    <Label col="1" text="Mis reservas activas" class="p-r-10"></Label>
+                    <Label col="1" text="Mis reservas" class="p-r-10"></Label>
                 </GridLayout>
 
-                <!-- <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Historial')" (tap)="onNavItemTap('/historial')">
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Reservas')" (tap)="onNavItemTap('/historial')">
                     <Label col="0" text="&#xf1da;" class="fa"></Label>
-                    <Label col="1" text="Historial de reservas" class="p-r-10"></Label>
-                </GridLayout> -->
+                    <Label col="1" text="Historial" class="p-r-10"></Label>
+                </GridLayout>
+
 
                 <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Perfil')" (tap)="onNavItemTap('/perfil')">
                     <Label col="0" text="&#xf007;" class="fa"></Label>

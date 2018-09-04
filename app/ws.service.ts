@@ -133,6 +133,16 @@ export class WebService {
             .pipe(map(res => res));
     }
 
+    getDatosViaje(idViaje) { 
+        //listar_viajes_rutas.aspx?idconductor=0&idpasajero=2&estado=PROGRAMADO
+        var serverUrl = "http://ctcarpoolimp.cloudapp.net/carpoolservices/consultar_datos_viaje.aspx";
+        
+        let headers = this.createRequestHeader();
+
+        return this.http.get(serverUrl, { params:{ idviaje:idViaje}, headers: headers })
+            .pipe(map(res => res));
+    }
+
     getTokensConductor(idConductor) { 
         //listar_viajes_rutas.aspx?idconductor=0&idpasajero=2&estado=PROGRAMADO
         var serverUrl = "http://ctcarpoolimp.cloudapp.net/carpoolservices/traer_tokens_push.aspx";
@@ -163,12 +173,42 @@ export class WebService {
             .pipe(map(res => res));
     }
 
+    enviarPushCheckin(mensaje,tokens,idRuta,idViaje,idPasajero,nombrePasajero){
+        console.log('Notificando al conductor el mensaje: '+mensaje+' a los tokens:');
+        console.log(tokens);
+        var serverUrl = "http://apps.emeraldstudio.co/imperial/servicios3.php?idpasajero="+idPasajero+"&idruta="+idRuta+"&idviaje="+idViaje+"&nombrepasajero="+encodeURI(nombrePasajero)+"&mensaje="+encodeURI(mensaje);
+        for(let i = 0; i < tokens.length; i++){
+            serverUrl=serverUrl+('&tokens[]='+tokens[i])
+        }
+        console.log('URL a enviar');
+        console.log(serverUrl);
+        
+        //listar_viajes_rutas.aspx?idconductor=0&idpasajero=2&estado=PROGRAMADO
+        
+        
+        let headers = this.createRequestHeader();
+
+        return this.http.get(serverUrl, { headers: headers })
+            .pipe(map(res => res));
+    }
+
     getPuntosRuta(idRuta) { 
         var serverUrl = "http://ctcarpoolimp.cloudapp.net/carpoolservices/traer_paraderos_ruta.aspx";
         
         let headers = this.createRequestHeader();
 
         return this.http.get(serverUrl, { params:{ idruta:idRuta}, headers: headers })
+            .pipe(map(res => res));
+    }
+
+    getPersonas(idViaje) { 
+        
+        var serverUrl = "http://ctcarpoolimp.cloudapp.net/carpoolservices/listar_reservas_viaje.aspx";
+        console.log('Consultando paraderos del viaje: '+idViaje);
+        
+        let headers = this.createRequestHeader();
+
+        return this.http.get(serverUrl, { params:{ idviaje:idViaje}, headers: headers })
             .pipe(map(res => res));
     }
 
@@ -181,6 +221,18 @@ export class WebService {
         let headers = this.createRequestHeader();
 
         return this.http.get(serverUrl, { params:{ idpasajero:idPasajero, idviaje: idViaje, cantidad:cantidad, direccion: direccion, latitud:latitud, longitud:longitud}, headers: headers })
+            .pipe(map(res => res));
+    }
+
+    registrarPasajero(idViaje,idPasajero,estado,latitud,longitud) { 
+        var serverUrl = "http://ctcarpoolimp.cloudapp.net/carpoolservices/registrar_estado_pasajero_viaje.aspx";
+        console.log('URL registro: '+serverUrl);
+
+        let headers = this.createRequestHeader();
+        /*return this.http.get(serverUrl)
+            .map(res => res); */
+
+        return this.http.get(serverUrl, { params:{ idviaje:idViaje, idpasajero:idPasajero,estado:estado,latitud:latitud,longitud:longitud}, headers: headers })
             .pipe(map(res => res));
     }
 

@@ -12,10 +12,12 @@
 	<GridView row="2" [items]="myItems" colWidth="30%" rowHeight="100">
 		<ng-template let-item="item" let-odd="odd">
 		  <StackLayout margin="10" [nsRouterLink]="['/ruta/'+item.idruta+'/'+item.idviaje+'/'+item.precio+'/'+item.nombreruta]"  borderRadius="5" verticalAlignment="stretch" class="list-group-item" [class.odd]="odd" backgroundColor="#a5163d">
-		  	<Label horizontalAlignment="center" text="&#xf017;" class="fa iconoReloj"></Label>
 		    <Label verticalAlignment="center" [text]="item.fecha_viaje | date: 'EEEE' | titlecase" class="itemFecha text-center" textWrap="true"></Label>
-		    <Label verticalAlignment="center" [text]="item.fecha_viaje | date: 'MMM d'" class="itemDiaMes text-center" textWrap="true"></Label>
-		    <Label verticalAlignment="center" [text]="item.hora_viaje" class="itemHorario text-center" textWrap="true"></Label>
+		    <Label verticalAlignment="center" [text]="item.fecha_viaje | date: 'MMM d'" class="fa itemDiaMes text-center" textWrap="true"></Label>
+		    <Label verticalAlignment="center" [text]="'&#xf017; '+item.hora_viaje" class="fa itemHorario text-center" textWrap="true"></Label>
+		    <Label verticalAlignment="center" [text]="'&#xf0c0; '+item.capacidad" class="fa itemCapacidad text-center" textWrap="true"></Label>
+		    <Label verticalAlignment="center" [text]="'&#xf155; '+item.precio" class="fa itemCapacidad text-center" textWrap="true"></Label>
+		    <Label verticalAlignment="center" [text]="'&#xf207; '+item.placa" class="fa itemCapacidad text-center" textWrap="true"></Label>
 		  </StackLayout>
 		</ng-template>
 	</GridView>

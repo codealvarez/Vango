@@ -66,9 +66,14 @@ export class ViajeComponent implements OnInit {
     vehiculo:any;
     van:Marker;
     timeout:any;
+    recorrido:boolean=false;
     //public mensajes = new observableArray.ObservableArray([]);
     public mensajes=[]; 
     tokensCunductor=[];
+    puntoRecogida:any;
+    checkin:boolean=false;
+    mostrarVan:boolean=false;
+    estadoViaje:string;
 
     styles=[
     {
@@ -410,24 +415,25 @@ export class ViajeComponent implements OnInit {
         * Use the "ngOnInit" handler to initialize data for this component.
         *************************************************************/
         const idConductor = this.idconductor;
+        let model = this;
 
         /*console.log('Token PUSH: '+ApplicationSettings.getString('tokenPush'));
         this.tokensCunductor.push(ApplicationSettings.getString('tokenPush'));
         this.tokensCunductor.push('chupelofuerte');
         */
-        this.page.on('navigatingTo', (data) => {
-            console.log('Entrando por loka');
+        model.page.on('navigatingTo', (data) => {
+            console.log('Entrando a la vista');
             // run init code
             // (note: this will run when you either move forward or back to this page)
         });
 
-        this.page.on('navigatingFrom', (data) => {
-            console.log('Saliendo por loka');
-            clearInterval(this.timeout); 
+        model.page.on('navigatingFrom', (data) => {
+            console.log('Saliendo de la vista');
+            clearInterval(model.timeout); 
             // run destroy code
             // (note: this will run when you either move forward to a new page or back to the previous page)
         }); 
-        this.myService.getMensajes()
+        model.myService.getMensajes()
             .subscribe((result) => {
                 console.log('Resultado de mensajes');
                 console.log(result);
@@ -435,13 +441,15 @@ export class ViajeComponent implements OnInit {
                     console.log('Pintando a:');
                     console.log(result[i]); // "species"
 
-                    this.mensajes.push(result[i].texto);  
-                    console.log(this.mensajes);
+                    model.mensajes.push(result[i].texto);  
+                    console.log(model.mensajes);
                 }
             }, (error) => {
-                this.onGetDataError(error);
-            });
-        this.myService.getTokensConductor(idConductor)
+                model.onGetDataError(error);
+            }); 
+
+        
+        model.myService.getTokensConductor(idConductor)
             .subscribe((result) => {
                 console.log('Resultado de tokens conductor: '+idConductor);
                 console.log(result);
@@ -449,10 +457,10 @@ export class ViajeComponent implements OnInit {
                     console.log('Pintando a:');
                     console.log(result[i]); // "species"
 
-                    this.tokensCunductor.push(result[i].token);
+                    model.tokensCunductor.push(result[i].token);
                 }
             }, (error) => {
-                this.onGetDataError(error);
+                model.onGetDataError(error);
             });
 
 
@@ -489,7 +497,7 @@ export class ViajeComponent implements OnInit {
                         if (loc) {
                             model.latitude = loc.latitude;
                             model.longitude = loc.longitude;
-                            model.setMarcador(loc.latitude,loc.longitude,'pasajero',2);
+                            //model.setMarcador(loc.latitude,loc.longitude,'pasajero',2,null);
                         }
                     }, function (e) {
                         console.log("Error: " + (e.message || e));
@@ -599,8 +607,6 @@ export class ViajeComponent implements OnInit {
     onMapReady(event) {
         console.log('Map Ready');
 
-        console.log('Map Ready');
-
         this.mapView = event.object;
 
         console.log("Setting a marker...");
@@ -608,6 +614,57 @@ export class ViajeComponent implements OnInit {
         loader.show();
         let model = this;
         model.mapView.setStyle(<Style>(this.styles));
+
+        model.myService.getDatosViaje(model.idviaje)
+            .subscribe((result:any) => {
+                console.log('Resultado del viaje: '+model.idviaje);
+                console.log(result);
+                if(result[0].estado == "EN PUNTO DE INICIO" || result[0].estado == "EN SERVICIO"){
+                        model.mostrarVan = true;
+                }
+                model.estadoViaje = result[0].estado;
+                model.myService.getPersonas(model.idviaje).subscribe((res) => {
+                loader.hide();
+                console.log('Respuesta de los pasajeros del viaje: '+Object.keys(res).length);
+                console.log(JSON.stringify(res));
+                for(let i = 0; i <Object.keys(res).length; i++) {
+                    console.log('Detalle de punto');
+                    console.log(JSON.stringify(res[i]));
+                    if(res[i].idpasajero === ApplicationSettings.getString('idUsuario')){
+                        console.log('Detalles del pasajero');
+                        console.log(res[i]);
+                        model.latitude = res[i].latitud*1;
+                        model.longitude = res[i].longitud*1;    
+                        model.setMarcador(res[i].latitud*1,res[i].longitud*1,'pasajero',res[i].nombrepasajero,res[i].direccion);    
+
+                        if(res[i].estadopv=='0' && (model.estadoViaje=='EN SERVICIO' || model.estadoViaje=='EN PUNTO DE INICIO')){
+                            model.checkin=true;
+                        }
+                    }
+
+                    //model.paradas.push([Position.positionFromLatLng(res[i].latitud,res[i].longitud),res[i].nombrepasajero]); 
+                    /*if(res[i].estadopv == "0"){ //SI el pasajero no se ha subido
+                        model.setMarcador(res[i].latitud*1,res[i].longitud*1,'pasajero',res[i].nombrepasajero,res[i].direccion);    
+                    }*/
+                    
+                }
+                
+                
+                
+                
+            }, (error) => {
+                loader.hide();
+                console.log('Error trayendo los paraderos del viaje');
+                console.log(error);
+            });
+                
+            }, (error) => {
+                model.onGetDataError(error);
+            }); 
+
+
+        
+
         this.myService.getPuntosRuta(this.idruta).subscribe((res) => {
             
             console.log('Respuesta de la ruta: '+model.idruta);
@@ -620,8 +677,8 @@ export class ViajeComponent implements OnInit {
                     model.latInicial = res[i].latitud;
                     model.lonInicial = res[i].longitud;
 
-                    model.latitude = res[i].latitud*1;
-                    model.longitude = res[i].longitud*1;
+                    //model.latitude = res[i].latitud*1;
+                    //model.longitude = res[i].longitud*1;
                     //console.log('LAT: '+model.latitude+' - LON: '+model.longitude);
                 }
                 if(res[i].tipo == 'FIN'){
@@ -635,16 +692,19 @@ export class ViajeComponent implements OnInit {
             
             console.log('Punto inicial: LAT:'+model.latInicial+' - LON:'+model.lonInicial);
             console.log('Punto final: LAT:'+model.latFinal+' - LON:'+model.lonFinal);
-            model.setMarcador(model.latInicial,model.lonInicial,'inicio',0);
-            model.setMarcador(model.latFinal,model.lonFinal,'fin',0);
+            model.setMarcador(model.latInicial,model.lonInicial,'inicio',0,null);
+            model.setMarcador(model.latFinal,model.lonFinal,'fin',0,null);
             //model.setMarcador(model.vehiculo.latitud,model.vehiculo.latitud,'conductor',0);
             model.ubicarVehiculo();
             console.log('PARADAS NORMALES');
             console.log(JSON.stringify(model.paradas));
             
            
-
-            model.dibujarRuta(model.latInicial,model.lonInicial,model.latFinal,model.lonFinal,model.paradas);
+            if(!model.recorrido){ 
+                model.dibujarRuta(model.latInicial,model.lonInicial,model.latFinal,model.lonFinal,model.paradas);  
+                model.recorrido=true;
+            }
+            
             loader.hide();
             
 
@@ -653,15 +713,22 @@ export class ViajeComponent implements OnInit {
             loader.hide();
             this.onGetDataError(error);
         }); 
+
+
+
     }
     onCoordinateTapped(args) {
         console.log("Coordinate Tapped, Lat: " + args.position.latitude + ", Lon: " + args.position.longitude, args);
     }
 
     onMarkerEvent(args) {
-        ApplicationSettings.setString('idParada',args.marker.userData.id);
-        ApplicationSettings.setNumber('idViaje',this.idviaje);
-        this.routerExtensions.navigate(["/reservar"]);
+        dialogs.alert({
+            title: "Punto de recogida",
+            message: "Este es el punto de recogida de tu viaje. ¡Debes estar atento!",
+            okButtonText: "Ok"
+        }).then(() => {
+            console.log("Dialog closed!");
+        });
     } 
 
     onCameraChanged(args) {
@@ -678,7 +745,10 @@ export class ViajeComponent implements OnInit {
                 model.vehiculo = result;
                 console.log('VEHICULO');
                 console.log(model.vehiculo);
-                model.setMarcadorVan(model.vehiculo.latitud,model.vehiculo.longitud,'conductor',0);
+                if(model.estadoViaje=='EN PUNTO DE INICIO' || model.estadoViaje=='EN SERVICIO'){
+                    model.setMarcadorVan(model.vehiculo.latitud,model.vehiculo.longitud,'conductor',0);    
+                }
+                
 
             }, (error) => {
                 this.onGetDataError(error);
@@ -692,12 +762,14 @@ export class ViajeComponent implements OnInit {
                 model.vehiculo = result;
                 console.log('VEHICULO');
                 console.log(model.vehiculo);
-                model.setMarcadorVan(model.vehiculo.latitud,model.vehiculo.longitud,'conductor',0);
+                if(model.estadoViaje=='EN PUNTO DE INICIO' || model.estadoViaje=='EN SERVICIO'){
+                    model.setMarcadorVan(model.vehiculo.latitud,model.vehiculo.longitud,'conductor',0);
+                }
 
             }, (error) => {
                 this.onGetDataError(error);
             });
-        }, 5000);
+        }, 2000);
         
         
     }
@@ -734,12 +806,13 @@ export class ViajeComponent implements OnInit {
          
     }
 
-    setMarcador(lat,lon,tipo,id){
+    setMarcador(lat,lon,tipo,id,data2){
         console.log('Pintando marcador: '+lat+' - '+lon+' - '+tipo);
         var marker = new Marker();
         const image = new ImageModule.Image();
         image.width=20; 
         image.height=20; 
+        marker.snippet = 'Descripción del punto';
         if(tipo == 'inicio'){
             image.imageSource = imageSource.fromResource('inicio');  
             marker.title = "Punto de inicio";
@@ -747,15 +820,15 @@ export class ViajeComponent implements OnInit {
             image.imageSource = imageSource.fromResource('fin');
             marker.title = "Punto final";
         }else if(tipo == 'pasajero'){
-            marker.title = "Tu ubicación";  
+            marker.title = "Tu ubicación de recogida";  
             image.imageSource = imageSource.fromResource('pasajero');
-            
+            marker.snippet = 'Debes esperar a la van en este punto';
         } 
 
         
         marker.position = Position.positionFromLatLng(lat, lon);
         marker.icon=image;
-        marker.snippet = 'Descripción del punto';
+        
         marker.userData = {index: 1,id: id};
         this.mapView.addMarker(marker); 
     }
@@ -782,26 +855,38 @@ export class ViajeComponent implements OnInit {
             if(r){
                 if(model.tokensCunductor.length > 0){
                     let nombres = ApplicationSettings.getString('nombreUsuario');
-                    model.myService.enviarPush(model.tokensCunductor,encodeURI(nombres+' se ha subido a la van'))
-                    .subscribe((result2) => {
-                        console.log('Resultado del push');
-                        //console.log(result2);
-                        dialogs.alert({
-                            title: "Listo",
-                            message: "Check-In realizado exitosamente",
-                            okButtonText: "Ok"
-                        }).then(() => {
-                            console.log("Dialog closed!");
+                    let idPasajero = ApplicationSettings.getString('idUsuario');
+
+                    model.myService.registrarPasajero(model.idviaje,idPasajero,'1','0','0')
+                        .subscribe((result) => {
+                            console.log('Respuesta de registro de pasajero');
+                            console.log(result);
+                            
+                            model.myService.enviarPushCheckin(encodeURI(nombres+' se ha subido a la van'),model.tokensCunductor,model.idviaje,model.idruta,idPasajero,nombres)
+                                .subscribe((result2) => {
+                                    console.log('Resultado del push');
+                                    //console.log(result2);
+                                    dialogs.alert({
+                                        title: "Listo",
+                                        message: "Check-In realizado exitosamente",
+                                        okButtonText: "Ok"
+                                    }).then(() => {
+                                        console.log("Dialog closed!");
+                                        model.checkin=false;
+                                    });
+                                }, (error) => {
+                                    dialogs.alert({
+                                        title: "Check-In fallido",
+                                        message: "El check-in no pudo ser realizado. Intenta de nuevo por favor.",
+                                        okButtonText: "Ok"
+                                    }).then(() => {
+                                        console.log("Dialog closed!");
+                                    });
+                                });
+                        }, (error) => {
+                            model.onGetDataError(error);
                         });
-                    }, (error) => {
-                        dialogs.alert({
-                            title: "Check-In fallido",
-                            message: "El check-in no pudo ser realizado. Intenta de nuevo por favor.",
-                            okButtonText: "Ok"
-                        }).then(() => {
-                            console.log("Dialog closed!");
-                        });
-                    });
+                    
                 }else{
                     dialogs.alert({
                         title: "Error conductor",

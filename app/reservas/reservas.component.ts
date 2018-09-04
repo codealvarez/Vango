@@ -55,8 +55,11 @@ export class ReservasComponent implements OnInit {
             for(let i = 0; i <Object.keys(res).length; i++) {
                 console.log('Pintando a:');
                 console.log(res[i]); // "species"
-
-                this.myItems.push(res[i]); 
+                if(res[i].estadoviaje != 'FINALIZADO'){
+                    //res[i].estadoviaje='EN TRANSITO';
+                    this.myItems.push(res[i]);     
+                }
+                
             }
 
             

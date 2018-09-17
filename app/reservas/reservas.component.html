@@ -7,23 +7,16 @@
     
 </ActionBar>
 <!-- *ngIf='item.estadoviaje != "FINALIZADO"' -->
-<GridLayout rows="*"> 
+<GridLayout rows="*" class="listadoR"> 
     <ListView  [items]="myItems" >
 	    <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
-	        <StackLayout class="listaReservas">
-				<GridLayout columns="*,*,*" rows="*,*,*,*,*" class="p-l-10 p-t-10 itemListaReserva" [class.odd]="odd" [class.even]="even" >
+	        <StackLayout class="listaReservas"  [nsRouterLink]="['/viaje/'+item.idruta+'/'+item.idviaje+'/'+item.placa+'/'+item.idconductor]">
+				<GridLayout columns="*,*,*" rows="*,*,*,*,*" class="itemListaReserva" [class.odd]="odd" [class.even]="even" >
 
 					<!-- Nombre y estado -->
 	            	<GridLayout col="0" row="0" colSpan="4" columns="*,*,*" rows="auto" >
-	            		<Label class="text-center nombreRutaDisponible" col="0" row="0" colSpan="2" [text]='item.nombreruta'></Label>
-	            		<Label col="2" row="0" 
-	            		[class.estadoViajeVerde]="item.estadoviaje=='EN SERVICIO'" 
-	            		[class.estadoViajeNaranja]="item.estadoviaje=='EN PUNTO DE INICIO'" 
-	            		[class.estadoViajeAzul]="item.estadoviaje=='EN TRANSITO'" 
-	            		[class.estadoViajeFin]="item.estadoviaje=='FINALIZADO'" 
-	            		[class.estadoViajeFin]="item.estadoviaje=='PROGRAMADO'" 
-	            		[text]='item.estadoviaje'  textWrap="true" 
-	            		verticalAlignment="center" horizontalAlignment="right"></Label>
+	            		<Label class="text-center nombreRutaDisponible" col="0" row="0" colSpan="3" [text]='item.nombreruta'></Label>
+	            		
 	            	</GridLayout> 
 
 	            	<!-- Dirección -->
@@ -39,26 +32,36 @@
 	            	</GridLayout>
 
 	            	<!-- Placa -->
-	            	<GridLayout col="0" row="3" colSpan="2" columns="auto,auto" rows="auto" horizontalAlignment="left">
+	            	<!-- <GridLayout col="0" row="3" colSpan="2" columns="auto,auto" rows="auto" horizontalAlignment="left">
 	            		<Label col="0" row="0" text="&#xf207;" class="fa m-l-10 m-r-5 p-t-4"></Label>
 	            		<Label class="text-center p-t-4 m-l-2" col="1" row="0" [text]='item.placa'></Label>
+	            	</GridLayout> -->
+
+	            	<!-- Pasajeros -->
+	            	 <GridLayout col="0" row="4" colSpan="2" columns="auto,auto" rows="auto" horizontalAlignment="left">
+	            		<Label col="0" row="0" text="&#xf0c0;" class="fa m-l-10 m-r-5 p-t-4"></Label>
+	            		<Label class="text-center p-t-4 m-l-2" col="1" row="0" [text]='item.pasajes' textWrap="true"></Label>
 	            	</GridLayout>
 
 	            	<!-- Conductor -->
-	            	<GridLayout col="0" row="4" colSpan="2" columns="auto,auto" rows="auto" horizontalAlignment="left">
+	            	<!-- <GridLayout col="0" row="4" colSpan="2" columns="auto,auto" rows="auto" horizontalAlignment="left">
 	            		<Label col="0" row="0" text="&#xf007;" class="fa m-l-10 m-r-5 p-t-4"></Label>
 	            		<Label class="text-center p-t-4 m-l-2" col="1" row="0" [text]='item.conductor'></Label>
-	            	</GridLayout>
+	            	</GridLayout> -->
 
-	            	<Button col="2" row="1" rowSpan="3" class="btn btn-principal btnVerReserva" text="Ver reserva" [nsRouterLink]="['/viaje/'+item.idruta+'/'+item.idviaje+'/'+item.placa+'/'+item.idconductor]"></Button>
+	            	<!-- <Button col="2" row="1" rowSpan="3" class="btn btn-principal btnVerReserva" text="Ver reserva" [nsRouterLink]="['/viaje/'+item.idruta+'/'+item.idviaje+'/'+item.placa+'/'+item.idconductor]"></Button> -->
+
+	            	<Label col="2" row="1"rowSpan="3" class="estadoviaje"
+	            		[class.estadoViajeVerde]="item.estadoviaje=='EN SERVICIO'" 
+	            		[class.estadoViajeNaranja]="item.estadoviaje=='EN PUNTO DE INICIO'" 
+	            		[class.estadoViajeAzul]="item.estadoviaje=='EN TRANSITO'" 
+	            		[class.estadoViajeFin]="item.estadoviaje=='FINALIZADO'" 
+	            		[class.estadoViajeFin]="item.estadoviaje=='PROGRAMADO'" 
+	            		[text]='item.estadoviaje'  textWrap="true" 
+	            		verticalAlignment="center" horizontalAlignment="right"></Label>
 
 
-	            	<!-- Pasajeros -->
-	            	<!-- <GridLayout col="2" row="1" columns="auto,auto" rows="auto" horizontalAlignment="left" class="p-l-5">
-	            		<Label col="0" row="0" text="&#xf0c0;" class="fa"></Label>
-	            		<Label class="text-center p-t-4 m-l-2 p-r-10" col="1" row="0" [text]='item.pasajes' textWrap="true"></Label>
-	            	</GridLayout>
- -->
+
 	            	
 	            	
 	            </GridLayout>

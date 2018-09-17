@@ -33,7 +33,49 @@
             <Image col="2" src="~/images/contactar.png"  width="30" class="imagenReserva" (tap)="contactar()"></Image>
         </GridLayout>
     </StackLayout>
-    <StackLayout columns="auto, auto" orientation="horizontal" width="95%" class="abajoVista">
+    <StackLayout columns="auto, auto" width="95%" class="abajoVista">
+        <StackLayout class="detalleViaje">
+            <GridLayout columns="auto,auto" rows="auto,auto,auto,auto,auto">
+                <Label col="0" row="0" colSpan="2" [text]="nombreRuta" class="text-center nombreViajeDet m-b-10" textWrap="true"></Label>
+
+                <!-- Dirección -->
+                <GridLayout col="0" row="1" colSpan="2" columns="auto,*" rows="auto" >
+                  <Label col="0" row="0" text="&#xf041;" class="fa m-r-5"></Label>
+                  <Label col="1" row="0" [text]='direccionRecogida' textWrap="true"></Label>
+                </GridLayout> 
+
+                <!-- Fecha -->
+                <GridLayout col="0" row="2"  columns="auto,auto" rows="auto" horizontalAlignment="left">
+                  <Label col="0" row="0" text="&#xf133;" class="fa m-r-5 p-t-4"></Label>
+                  <Label class="text-center p-t-4 m-l-2" col="1" row="0" [text]='fechaViaje'></Label>
+                </GridLayout>
+
+                <!-- Hora -->
+                <GridLayout col="1" row="2" columns="auto,auto" rows="auto" horizontalAlignment="left">
+                  <Label col="0" row="0" text="&#xf017;" class="fa m-r-5 p-t-4"></Label>
+                  <Label class="text-center p-t-4 m-l-2" col="1" row="0" [text]='horaViaje'></Label>
+                </GridLayout>
+
+                <!-- Conductor -->
+                <GridLayout col="0" row="3" columns="auto,auto" rows="auto" horizontalAlignment="left">
+                  <Label col="0" row="0" text="&#xf007;" class="fa m-r-5 p-t-4"></Label>
+                  <Label class="text-center p-t-4 m-l-2" col="1" row="0" [text]='nombreConductor'></Label>
+                </GridLayout>
+
+                <!-- Placa -->
+                <GridLayout col="1" row="3" columns="auto,auto" rows="auto" horizontalAlignment="left">
+                  <Label col="0" row="0" text="&#xf207;" class="fa m-r-5 p-t-4"></Label>
+                  <Label class="text-center p-t-4 m-l-2" col="1" row="0" [text]='placa'></Label>
+                </GridLayout>
+
+                <!-- Pasajeros -->
+                 <GridLayout col="0" row="4" columns="auto,auto" rows="auto" horizontalAlignment="left">
+                  <Label col="0" row="0" text="&#xf0c0;" class="fa m-r-5 p-t-4"></Label>
+                  <Label class="text-center p-t-4 m-l-2" col="1" row="0" [text]='cantidadPasajeros' textWrap="true"></Label>
+                </GridLayout>
+
+            </GridLayout>
+        </StackLayout>
         <Button row="1" class="btn btn-secundario btn-completo" visibility="{{ checkin ? 'visible' : 'collapsed' }}" (tap)="checkIn()" text="Check-In"></Button>
     </StackLayout> 
 

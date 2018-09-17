@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
         /* ***********************************************************
         * Use the "ngOnInit" handler to initialize data for this component.
         *************************************************************/
+        
     }
 
     onLoginWithSocialProviderButtonTap(): void {

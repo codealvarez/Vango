@@ -44,6 +44,9 @@
     margin-top:1;
     font-size:10;
 }
+.estadoviaje{
+    font-size:8;
+}
 .estadoViajeFin{
     background:#808285;
     color:#ffffff;
@@ -84,6 +87,7 @@
     background-position: center;
     background-size: cover; */
 }
+
 .cantidadPasajeros{
     font-size:30;
     vertical-align:center; 
@@ -139,10 +143,12 @@
     background-color:#FFFFFF;
 }
 .listaDisponibles .odd{
-    border-left-color:$azul;
+    //border-left-color:$azul;
+    border-left-color:#b41642;
 }
 .listaDisponibles .even{
-    border-left-color:$naranja;
+    //border-left-color:$naranja;
+    border-left-color:#b41642
 }
 .nombreRuta{
     font-size:14;
@@ -152,19 +158,15 @@
     padding:5;
 }
 .listaDisponibles .odd .nombreRuta{
-    background-color:$azul;
+    //background-color:$azul;
+    background-color:#b41642;
+
 }
 .listaDisponibles .even .nombreRuta{
-    background-color:$naranja;
-}
-.listaReservas{
-    margin-top:2;
-    margin-bottom:2;
-    padding-top:5;
-    padding-bottom:5;
-    font-size:12;
-    color:#1A1A1A;
-}
+    //background-color:$naranja;
+    background-color:#b41642;
+}       
+
 .imagenReserva{
     margin:5;
 }
@@ -180,14 +182,49 @@
     padding-bottom:4;
     margin-bottom:3;
 }
+.listaReservas{
+    background-image: url('~/images/fondo_reserva.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding-left:25;
+    padding-right:25;
+    margin-top:2;
+    margin-bottom:2; 
+    padding-top:5;
+    padding-bottom:5;
+    font-size:12;
+    color:#1A1A1A;
+    border-width:5;
+    border-top-color:#b41642;
+    border-bottom-color:#b41642;
+
+}
+.listadoR{
+    padding-left:10;
+    padding-right:10;
+
+}
 .listaReservas .odd .nombreRutaDisponible{
-    background-color:$azul;
+    background-color:#b41642;
 }
 .listaReservas .even .nombreRutaDisponible{
-    background-color:$naranja;
+    background-color:#b41642;
+}
+.nombreViajeDet{
+    background: #662D91;
+    color:#ffffff;
+    border-radius:4;
+    padding:6;
+    width:100%;
 }
 .pageDisponibles{
     background-color:#F8F8F8;
+}
+.detalleViaje{
+    background-color:#F2F2F2;
+    padding:20;
+    color:#666666;
 }
 .horaRuta{
     font-size:30;
@@ -324,7 +361,7 @@
 }
 .botonCerrar{
     color:#a5163d;
-    font-size:18;
+    font-size:30;
 }
 
 //Action bar

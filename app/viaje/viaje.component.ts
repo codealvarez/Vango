@@ -45,6 +45,12 @@ export class ViajeComponent implements OnInit {
     idviaje: number;
     idconductor: number;
     placa:string;
+    nombreRuta:string="Nombre ruta";
+    direccionRecogida:string="Dirección de recogida";
+    fechaViaje:string="00-00-0000";
+    horaViaje:string="00:00";
+    cantidadPasajeros:string='0';
+    nombreConductor:string='Nombre Conductor';
 
 
     latitude=4.587799; //Colombia4.587799, -73.940960
@@ -621,6 +627,24 @@ export class ViajeComponent implements OnInit {
                 console.log(result);
                 if(result[0].estado == "EN PUNTO DE INICIO" || result[0].estado == "EN SERVICIO"){
                         model.mostrarVan = true;
+                }
+                if(result[0].nombreruta){
+                    model.nombreRuta=result[0].nombreruta;
+                }
+                if(result[0].direccionrecogida){
+                    model.direccionRecogida=result[0].direccionrecogida;
+                }
+                if(result[0].fechaviaje){
+                    model.fechaViaje=result[0].fechaviaje;
+                }
+                if(result[0].horaviaje){
+                    model.horaViaje=result[0].horaviaje;
+                }
+                if(result[0].nombreconductor){
+                    model.nombreConductor=result[0].nombreconductor;
+                }
+                if(result[0].cantidadpasajeros){
+                    model.cantidadPasajeros=result[0].cantidadpasajeros;
                 }
                 model.estadoViaje = result[0].estado;
                 model.myService.getPersonas(model.idviaje).subscribe((res) => {

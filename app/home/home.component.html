@@ -21,8 +21,9 @@
              (cameraChanged)="onCameraChanged($event)"></MapView>
 	<!-- <FAB (tap)="nuevaReserva()" icon="res://lista" rippleColor="#f1f1f1" class="fab-button"></FAB> -->
   <!-- <FAB (tap)="verPagos()" icon="res://billetera" rippleColor="#f1f1f1" class="fab-button2"></FAB> -->
-  <StackLayout columns="auto, auto" orientation="horizontal" class="botonAbajoDerecha">
-        <Image (tap)="nuevaReserva()"  src="~/images/rutas.png" class="botonRutas"></Image>
+  <StackLayout columns="auto, auto" orientation="horizontal" class="abajoVista">
+        <!-- <Image (tap)="nuevaReserva()"  src="~/images/rutas.png" class="botonRutas"></Image> -->
+        <Button text="Buscar Rutas" width="100%" class="btn btn-principal" (tap)="nuevaReserva()"></Button>
         <!-- <Label text="Agregar"></Label> -->
   </StackLayout>
 </GridLayout> 

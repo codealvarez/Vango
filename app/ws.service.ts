@@ -133,13 +133,13 @@ export class WebService {
             .pipe(map(res => res));
     }
 
-    getDatosViaje(idViaje) { 
+    getDatosViaje(idViaje,idPasajero) { 
         //listar_viajes_rutas.aspx?idconductor=0&idpasajero=2&estado=PROGRAMADO
         var serverUrl = "http://ctcarpoolimp.cloudapp.net/carpoolservices/consultar_datos_viaje.aspx";
         
         let headers = this.createRequestHeader();
 
-        return this.http.get(serverUrl, { params:{ idviaje:idViaje}, headers: headers })
+        return this.http.get(serverUrl, { params:{ idviaje:idViaje,idpasajero:idPasajero}, headers: headers })
             .pipe(map(res => res));
     }
 
@@ -271,6 +271,91 @@ export class WebService {
         return this.http.get(serverUrl, { params:{ idusuario:user,idmodipay:idMember}, headers: headers })
             .pipe(map(res => res));
     }
+    getIdVango(cedula,email,nombre,empresa,idEmpresa) { 
+        var serverUrl = "http://bimoney.co/vangoServices/webresources/service/registroMiembro";
+        
+        let headers = this.createRequestHeader();
+        /*return this.http.get(serverUrl)
+            .map(res => res); */
+
+        return this.http.post(serverUrl, JSON.stringify({
+                userE:'c@rpooling+', 
+                passE:'F3OZ3H@q*U',
+                nombre:nombre,
+                apellido:'',
+                correo:email,
+                password:cedula,
+                ciudad:'Bogota',
+                empresa:empresa,
+                centrodecosto:'Centro Costo Prueba/Ciudad',
+                referencia1:"Ref1 Prueba",
+                referencia2:"Ref2 Prueba",
+                referencia3:"Ref3 Prueba",
+                fechadecaducidad:"",
+                regladeConsumo:"",
+                broker:idEmpresa,
+                movil:""
+            }), { 
+            headers: headers 
+        }).pipe(map(res => res));
+    }
+    getSaldo(idVango){
+        var serverUrl = "http://bimoney.co/vangoServices/webresources/service/saldoVango";
+        
+        let headers = this.createRequestHeader();
+        /*return this.http.get(serverUrl)
+            .map(res => res); */
+
+        return this.http.post(serverUrl, JSON.stringify({
+                userE:'c@rpooling+', 
+                passE:'F3OZ3H@q*U',
+                idtx:"11",
+                idvango:idVango
+                //idvango:"66053028"
+            }), { 
+            headers: headers 
+        }).pipe(map(res => res));
+    }
+    getTransacciones(idVango){
+        var serverUrl = "http://bimoney.co/vangoServices/webresources/service/historicoTx";
+        
+        let headers = this.createRequestHeader();
+        /*return this.http.get(serverUrl)
+            .map(res => res); */
+
+        return this.http.post(serverUrl, JSON.stringify({
+                userE:'c@rpooling+', 
+                passE:'F3OZ3H@q*U',
+                idtx:"11",
+                idvango:idVango
+                //idvango:"66053028"
+            }), { 
+            headers: headers 
+        }).pipe(map(res => res));
+    }
+    asignarIdVango(user,idVango) { 
+        var serverUrl = "http://ctcarpoolimp.cloudapp.net/carpoolservices/registrar_idvango.aspx";
+        //?idusuario=4&idmodipay=0
+        console.log('Recibidos - User:'+user+' - idMember: '+idVango);
+        let headers = this.createRequestHeader();
+        /*return this.http.get(serverUrl)
+            .map(res => res); */
+
+        return this.http.get(serverUrl, { params:{ idusuario:user,idvango:idVango}, headers: headers })
+            .pipe(map(res => res));
+    }
+    getEmpresas() { 
+        var serverUrl = "http://bimoney.co/vangoServices/webresources/service/vangoEmpresas";
+        
+        let headers = this.createRequestHeader();
+        /*return this.http.get(serverUrl)
+            .map(res => res); */
+
+        return this.http.post(serverUrl, JSON.stringify({
+            userE:'c@rpooling+', 
+            passE:'F3OZ3H@q*U'
+        }), { headers: headers }).pipe(map(res => res));
+    }
     registrarToken(token,idUsuario) { 
         var serverUrl = "http://ctcarpoolimp.cloudapp.net/carpoolservices/registrar_token_push.aspx";
         //?idusuario=4&idmodipay=0
@@ -384,6 +469,46 @@ export class WebService {
                 tipodeidentificacion:"Cedula Ciudadania",
                 nodeIdentificacion:"111111111",
                 correoNotificacion:"daniel07079@gmail.com"
+            }, {
+                headers: headers 
+            })
+            .pipe(map(res => res));
+    }
+
+    pagarConSaldo(idVango,valor) { 
+        var serverUrl = "http://bimoney.co/vangoServices/webresources/service/pagosVango";
+        
+        let headers = this.createRequestHeader();
+        /*return this.http.get(serverUrl)*/ 
+
+
+        return this.http.post(
+            serverUrl, { 
+                userE:"c@rpooling+",
+                passE:"F3OZ3H@q*U",
+                idvango:idVango,
+                valor:valor,
+                description:"",
+                transferTypeId:"",
+                origen:"2018-08-10 10:37:17|HOTEL NH LA BOHEME, CALLE 82, BOGOTÁ, COLOMBIA",
+                destino:"2018-08-10 10:38:28|ANDRÉS CARNE DE RES, CHIA, CUNDINAMARCA, COLOMBIA",
+                viajastecon:"Nombre Completo Conductor",
+                placa:"Placa van",
+                modelo:"VAN Mercedez",
+                km:"3,34 Km",
+                tiempodelviaje:"45 Minutos",
+                ruta:"Geoposicion",
+                recargo:"0      /    4,500",
+                descuento:"0   /     4,000",
+                cortesia:"0  /   1,500.00",
+                reserva:"434234",
+                valeDigital:"codigo de vale si es necesario",
+                puntosRedimidos:"33 Puntos",
+                calificacion:"5",
+                descripcion:"reunion",
+                geoPosicion:"geoPosicion",
+                validadorGPS:"imei equipo",
+                idServicio:"codigo integracion con otros sistemas"
             }, {
                 headers: headers 
             })

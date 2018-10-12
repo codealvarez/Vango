@@ -407,22 +407,7 @@ export class HomeComponent implements OnInit {
             });
         }
 
-        model.myService.getRutasDisponibles(null)
-            .subscribe((result) => {
-            console.log('Resultado de mensajes');
-            console.log(result);
-            for(let i = 0; i <Object.keys(result).length; i++) {
-                console.log('Pintando a:');
-                console.log(result[i]); // "species"
-
-                model.rutas.push(result[i]);  
-                console.log(model.rutas);
-                model.dibujarRuta(result[i].latorigen*1,result[i].lonorigen*1,result[i].latdestino*1,result[i].londestino*1,[])
-
-            }
-        }, (error) => {
-            model.onGetDataError(error);
-        });
+        
         
 
     }
@@ -554,6 +539,23 @@ export class HomeComponent implements OnInit {
             }
         }, function (e) {
             console.log("Error: " + (e.message || e));
+        });
+
+        model.myService.getRutasDisponibles(null)
+            .subscribe((result) => {
+            console.log('Resultado de mensajes');
+            console.log(result);
+            for(let i = 0; i <Object.keys(result).length; i++) {
+                console.log('Pintando a:');
+                console.log(result[i]); // "species"
+
+                model.rutas.push(result[i]);  
+                console.log(model.rutas);
+                model.dibujarRuta(result[i].latorigen*1,result[i].lonorigen*1,result[i].latdestino*1,result[i].londestino*1,[])
+
+            }
+        }, (error) => {
+            model.onGetDataError(error);
         });
     }
     ubicar(){

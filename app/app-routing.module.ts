@@ -20,6 +20,7 @@ const routes: Routes = [
     { path: "viaje/:idruta/:idviaje/:placa/:idconductor", loadChildren: "./viaje/viaje.module#ViajeModule" },
     { path: "historial", loadChildren: "./historial/historial.module#HistorialModule" },
     { path: "tarjetas", loadChildren: "./tarjetas/tarjetas.module#TarjetasModule" },
+    { path: "saldo", loadChildren: "./saldo/saldo.module#SaldoModule" },
     { path: "agregarTarjeta", loadChildren: "./agregarTarjeta/agregarTarjeta.module#AgregarTarjetaModule" },
     { path: "horarios", loadChildren: "./horarios/horarios.module#HorariosModule" },
     { path: "horarios/:idruta/:nombreruta", loadChildren: "./horarios/horarios.module#HorariosModule" },

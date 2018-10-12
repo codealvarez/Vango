@@ -34,6 +34,11 @@
                     <Label col="1" text="Mi perfil" class="p-r-10"></Label>
                 </GridLayout>
 
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('saldo')" (tap)="onNavItemTap('/saldo')">
+                    <Label col="0" text="&#xf155;" class="fa"></Label>
+                    <Label col="1" text="Mi saldo" class="p-r-10"></Label>
+                </GridLayout>
+
                 <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Tarjetas')" (tap)="onNavItemTap('/tarjetas')">
                     <Label col="0" text="&#xf09d;" class="fa"></Label>
                     <Label col="1" text="Mis tarjetas de crédito" class="p-r-10"></Label>

@@ -10,8 +10,18 @@
             [(ngModel)]="email2"></TextField>
         <TextField class="m-t-10 m-b-5 m-l-15 m-r-15 input-app" hint="Número de cédula" returnKeyType="next" keyboardType="phone"
             [(ngModel)]="cedula"></TextField>
-        <TextField class="m-t-10 m-b-5 m-l-15 m-r-15 input-app" hint="Grupo" returnKeyType="go"  autocorrect="false" autocapitalization="none"
-            [(ngModel)]="grupo"></TextField>
+        <!-- <TextField class="m-t-10 m-b-5 m-l-15 m-r-15 input-app" hint="Grupo" returnKeyType="go"  autocorrect="false" autocapitalization="none"
+            [(ngModel)]="grupo"></TextField> -->
+        <Label [text]="empresa" (tap)="seleccionarEmpresa()" class="m-t-10 m-b-5 m-l-15 m-r-15 input-app p-10"></Label>
+        <!-- <GridLayout tkExampleTitle tkToggleNavButton>
+            <RadListView [items]="empresas">
+                <ng-template tkListItemTemplate let-item="item">
+                    <StackLayout>
+                        <Label [text]="item.name" class="m-t-10 m-b-5 m-l-15 m-r-15"></Label>
+                    </StackLayout>
+                </ng-template>
+            </RadListView>
+        </GridLayout> -->
 
         <Button class="btn btn-principal" text="Siguiente" (tap)="onSignupButtonTap()"></Button>
         <Button class="btn btn-outline" text="¿Ya tienes cuenta?" [nsRouterLink]="['/login']"></Button>

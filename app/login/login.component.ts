@@ -124,6 +124,10 @@ export class LoginComponent implements OnInit {
             ApplicationSettings.setString("idUsuario",res.idpasajero);
             ApplicationSettings.setString("emailUsuario",res.mail);
             ApplicationSettings.setString("idmember",res.idmodipay);
+            ApplicationSettings.setString("idvango",res.idvango);
+            ApplicationSettings.setString("cedulaUsuario",this.cedula);
+            
+            
             setTimeout(() => {
                 this.routerExtensions.navigate(["/home"]);
             }, 200);

@@ -35,6 +35,7 @@ export class ReservarComponent implements OnInit {
     public tarjeta:string='Selecciona una tarjeta de pago';
     public idTarjeta:string;
     public textoBoton:string='PAGAR Y RESERVAR';
+    public saldo:number=0;
 
     //MAPA
     latitude= ApplicationSettings.getNumber('latReserva'); //Colombia4.587799, -73.940960
@@ -409,6 +410,33 @@ export class ReservarComponent implements OnInit {
             this.tarjeta='No tienes tarjetas asociadas a tu cuenta';
             loader.hide();
         }
+
+        let idvango = ApplicationSettings.getString('idvango');
+        if(idvango){
+            console.log('Con idmember: '+idvango);
+            this.myService.getSaldo(idvango).subscribe((result:any) => {
+                loader.hide();
+                console.log('Resultado del saldo');
+                console.log(result);
+                if(result.balance){
+                    this.saldo=result.balance*1;
+                }
+                
+            }, (error) => {
+                loader.hide();
+                console.log('Error consultando saldo');
+                console.log(error);
+            });
+            
+
+        }else{
+            console.log('Sin idmember');
+            /*this.myService.getIdVango(idUsuario,usuario).subscribe((result) => {
+                this.exitoIdMember(result);
+            }, (error) => {
+                this.onGetDataError(error);
+            });*/
+        }
     } 
     exitoTarjetas(res) {
         loader.hide();
@@ -462,6 +490,7 @@ export class ReservarComponent implements OnInit {
         // << action-dialog-code
     }
 
+
     public pasajeros: number = 1;
 
     
@@ -511,7 +540,7 @@ export class ReservarComponent implements OnInit {
         console.log('Respuesta del pago');
         console.log(JSON.stringify(res)); 
         loader.hide();
-        if(res.numaprobacion){
+        if(res.numaprobacion || res.transactionNumber){
             dialogs.alert({
                 title: 'Pago realizado exitosamente',
                 message: "Tu pago se realizó correctamente, número de aprobación: "+res.numaprobacion+", estamos realizando la reserva.",
@@ -528,6 +557,32 @@ export class ReservarComponent implements OnInit {
             }).then(() => {
                 console.log("Dialog closed!");
             });
+        }
+    }
+    public pagarConSaldo(){
+        loader.show();
+        console.log('Precio a pagar: '+this.valorTotal);
+        if(this.valor == 0){
+            this.reservar();
+        }else{
+            console.log('Pagar con saldo: '+this.saldo);
+            if(this.saldo > this.valorTotal){
+                let idvango = ApplicationSettings.getString('idvango');
+                this.myService.pagarConSaldo(idvango,''+this.valorTotal+'').subscribe((result) => {
+                    this.exitoPago(result);
+                }, (error) => {
+                    this.onGetDataError(error);
+                });
+            }else{
+                dialogs.alert({
+                    title: 'Error',
+                    message: "Debes seleccionar una tarjeta para realizar pago",
+                    okButtonText: 'Ok'
+                }).then(() => {
+                    console.log("Dialog closed!");
+                    loader.hide();
+                });
+            }
         }
     }
     public reservar(){

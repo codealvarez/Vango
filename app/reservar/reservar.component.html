@@ -23,8 +23,27 @@
 	    <Label row="0" col="3" colSpan="3" text="Total a pagar:" class="text-center font-weight-bold valorPagarLabel"></Label>
 	    <Label row="1" col="3" colSpan="3" [text]="valorTotal | currency:'COP':'symbol'" class="text-center font-weight-bold valorPagar"></Label>
 
-	    <Button visibility="{{ textoBoton != 'RESERVAR' ? 'visible' : 'collapsed' }}" row="2" col="0" colSpan="6" text="{{tarjeta}}" (tap)="displayActionDialog()" class="btn btn-secundario"></Button>
-	    <Button [text]="textoBoton" (tap)="pagar()" row="3" col="0" colSpan="6" class="btn btn-principal"></Button>
+	    <TabView id="tabViewContainer" row="2" col="0" colSpan="6">
+		    <StackLayout *tabItem="{title: 'Pago con saldo'}">
+		        <StackLayout>
+		            <Label col="0" row="0" [text]="'Saldo actual: '+saldo" class="text-center titulo p-t-10" textWrap="true" ></Label>
+
+		            <Button [text]="textoBoton" (tap)="pagarConSaldo()"  class="btn btn-principal"></Button>
+		        </StackLayout>
+		    </StackLayout>
+		    <StackLayout *tabItem="{title: 'Tarjeta de crédito'}">
+		        <StackLayout>
+		            <Button visibility="{{ textoBoton != 'RESERVAR' ? 'visible' : 'collapsed' }}" row="2" col="0" colSpan="6" text="{{tarjeta}}" (tap)="displayActionDialog()" class="btn btn-secundario"></Button>
+
+		            <Button [text]="textoBoton" (tap)="pagar()" class="btn btn-principal"></Button>
+
+		        </StackLayout>
+		    </StackLayout>
+		</TabView>
+
+	    
+
+	    
 
 	    <MapView #mapView row="4" col="0" colSpan="6" [latitude]="latitude" [longitude]="longitude"
              [zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom" [bearing]="bearing"

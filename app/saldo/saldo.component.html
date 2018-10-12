@@ -1,0 +1,30 @@
+<ActionBar class="action-bar">
+	<NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+	<ActionItem icon="res://menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
+        ios.position="left">
+    </ActionItem>
+	<Label class="action-bar-title" text="Mi saldo"></Label>
+</ActionBar>
+
+<GridLayout rows="auto,auto,*">
+ 	<GridLayout width="100%" columns="*" rows="auto,auto">
+        <Label col="0" row="0" [text]="'Saldo actual: '+saldo" class="text-center titulo p-t-10" textWrap="true" ></Label>
+        <Button col="0" row="1" class="btn btn-info" id="button" text="Agregar saldo" (tap)="agregarSaldo()"></Button>
+    </GridLayout>
+    <Label row="1" text="Historial de transacciones" class="text-center titulo p-t-10" textWrap="true" ></Label>
+    <ListView  [items]="myItems" row="2">
+	    <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+	        <StackLayout [class.odd]="odd" [class.even]="even">
+	            <GridLayout columns="auto,*" rows="auto,auto" class="p-l-10 p-y-10" >
+	            	<Label col="0" row="0" text="&#xf155;" class="fa font-weight-bold text-center p-t-2 m-r-5"></Label>
+	            	<Label class="font-weight-bold" col="1" row="0" [text]='item.formattedAmount+" - "+item.description'></Label>
+
+	            	<Label col="0" row="2" text="&#xf133;" class="fa font-weight-bold text-center p-t-2 m-r-5"></Label>
+	            	<Label class="font-weight-bold" col="1" row="2" [text]='item.formattedDate'></Label>
+
+
+	            </GridLayout>
+	        </StackLayout> 
+	    </ng-template>
+	</ListView>
+</GridLayout>	

@@ -620,8 +620,8 @@ export class ViajeComponent implements OnInit {
         loader.show();
         let model = this;
         model.mapView.setStyle(<Style>(this.styles));
-
-        model.myService.getDatosViaje(model.idviaje)
+        let idPasajero = ApplicationSettings.getString('idUsuario');
+        model.myService.getDatosViaje(model.idviaje,idPasajero)
             .subscribe((result:any) => {
                 console.log('Resultado del viaje: '+model.idviaje);
                 console.log(result);

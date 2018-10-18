@@ -10,6 +10,7 @@ import { Accuracy } from "ui/enums";
 //Imágenes para los marcadores
 import * as imageSource from "tns-core-modules/image-source";
 import * as ImageModule from "tns-core-modules/ui/image";
+import { SegmentedBar, SegmentedBarItem } from "tns-core-modules/ui/segmented-bar";
 /* ***********************************************************
 * Before you can navigate to this page from your app, you need to reference this page's module in the
 * global app router module. Add the following object to the global array of routes:
@@ -36,6 +37,7 @@ export class ReservarComponent implements OnInit {
     public idTarjeta:string;
     public textoBoton:string='PAGAR Y RESERVAR';
     public saldo:number=0;
+    tabSelectedIndex=1; 
 
     //MAPA
     latitude= ApplicationSettings.getNumber('latReserva'); //Colombia4.587799, -73.940960
@@ -378,6 +380,7 @@ export class ReservarComponent implements OnInit {
         this.idruta = ApplicationSettings.getNumber('rutaReserva');
         this.valor = ApplicationSettings.getNumber('precioReserva');
         this.valorTotal = this.valor;
+        console.log("Valor: "+this.valor);
         if(this.valor == 0){
             this.textoBoton = 'RESERVAR';
         }
@@ -543,7 +546,7 @@ export class ReservarComponent implements OnInit {
         if(res.numaprobacion || res.transactionNumber){
             dialogs.alert({
                 title: 'Pago realizado exitosamente',
-                message: "Tu pago se realizó correctamente, número de aprobación: "+res.numaprobacion+", estamos realizando la reserva.",
+                message: "Tu pago se realizó correctamente, número de aprobación: "+((res.numaprobacion) ? res.numaprobacion :res.transactionNumber)+", estamos realizando la reserva.",
                 okButtonText: 'Ok'
             }).then(() => {
                 console.log("Dialog closed!");
@@ -566,7 +569,7 @@ export class ReservarComponent implements OnInit {
             this.reservar();
         }else{
             console.log('Pagar con saldo: '+this.saldo);
-            if(this.saldo > this.valorTotal){
+            if(this.saldo >= this.valorTotal){
                 let idvango = ApplicationSettings.getString('idvango');
                 this.myService.pagarConSaldo(idvango,''+this.valorTotal+'').subscribe((result) => {
                     this.exitoPago(result);
@@ -576,7 +579,7 @@ export class ReservarComponent implements OnInit {
             }else{
                 dialogs.alert({
                     title: 'Error',
-                    message: "Debes seleccionar una tarjeta para realizar pago",
+                    message: "Tu saldo no es suficiente para reservar",
                     okButtonText: 'Ok'
                 }).then(() => {
                     console.log("Dialog closed!");

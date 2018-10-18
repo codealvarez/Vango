@@ -1,5 +1,5 @@
 # Omitir plataformas
-platforms
+platforms/
 # Omitir builds
 .cloud/
 

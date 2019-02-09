@@ -2,122 +2,59 @@
 	<NavigationButton text="Volver" android.systemIcon="ic_menu_back" (tap)="irAtras()"></NavigationButton> 
     <Label class="action-bar-title" text="Reservar puestos"></Label>
 </ActionBar>
-<GridLayout>
-<ScrollView>
-	<GridLayout class="m-2" columns="*,*,*,*,*,*" rows="auto,auto,auto,auto,auto,auto,auto,auto,auto" >
 
-		<Label col="0" row="0" colSpan="6"  text="Tu punto de recogida: " class="textoLabelRecogida" textWrap="true"></Label>
-
-		<Label col="0" row="1" colSpan="6" [text]='direccion' class="text-center textoRecogida" textWrap="true"></Label>
-		<Label col="0" row="2" colSpan="6" class="m-t-10 p-10 text-center bienvenida" textWrap="true" text="¿Cuantos puestos deseas reservar?"></Label>
-
+<StackLayout class="page">
+	<Label text="Tu punto de recogida: " class="textoLabelRecogida" textWrap="true"></Label>
+	<Label [text]='direccion' class="text-center textoRecogida" textWrap="true"></Label>
+	<Label class="m-t-10 p-10 text-center bienvenida" textWrap="true" text="¿Cuantos puestos deseas reservar?"></Label>
+	<GridLayout class="m-15" columns="*,*,*,*,*,*" rows="auto,auto,auto,auto,*" >
 	    
-	    <StackLayout class="btn-img"  orientation="horizontal" row="3" col="0" rowSpan="2" (tap)="disminuir()" >
+	    <StackLayout class="btn-img"  orientation="horizontal" row="0" col="0" rowSpan="2" (tap)="disminuir()" >
 		   <Image  src="~/images/btn_menos.png"  width="100%" height="100%"></Image>
 		</StackLayout>
 
-	    <Label row="3" col="1" rowSpan="2" [text]="pasajeros" class="text-center font-weight-bold cantidadPasajeros"></Label>
+	    <Label row="0" col="1" rowSpan="2" [text]="pasajeros" class="text-center font-weight-bold cantidadPasajeros"></Label>
 
-	    <StackLayout class="btn-img"  orientation="horizontal" row="3" col="2" rowSpan="2" (tap)="aumentar()" >
+	    <StackLayout class="btn-img"  orientation="horizontal" row="0" col="2" rowSpan="2" (tap)="aumentar()" >
 		   <Image  src="~/images/btn_mas.png"  width="100%" height="100%"></Image>
 		</StackLayout>
 
 	    
-	    <Label row="3" col="3" colSpan="3" text="Total a pagar:" class="text-center font-weight-bold valorPagarLabel"></Label>
+	    <Label row="0" col="3" colSpan="3" text="Total a pagar:" class="text-center font-weight-bold valorPagarLabel"></Label>
+	    <Label row="1" col="3" colSpan="3" [text]="valorTotal | currency:'COP':'symbol'" class="text-center font-weight-bold valorPagar"></Label>
 
-	    <Label row="4" col="3" colSpan="3" [text]="valorTotal | currency:'COP':'symbol'" class="text-center font-weight-bold valorPagar"></Label>
+	    <TabView id="tabViewContainer" row="2" col="0" colSpan="6">
+		    <StackLayout *tabItem="{title: 'Pago con saldo'}">
+		        <StackLayout>
+		            <Label col="0" row="0" [text]="'Saldo actual: '+saldo" class="text-center titulo p-t-10" textWrap="true" ></Label>
 
-		<Button col="0" row="5" colSpan="6" text="{{'Pagar con tu saldo Vango: '+(saldo| currency:'COP':'symbol')}}" (tap)="pagarConSaldo()"  class="btn btn-principal"></Button>
+		            <Button [text]="textoBoton" (tap)="pagarConSaldo()"  class="btn btn-principal"></Button>
+		        </StackLayout>
+		    </StackLayout>
+		    <StackLayout *tabItem="{title: 'Tarjeta de crédito'}">
+		        <StackLayout>
+		            <Button visibility="{{ textoBoton != 'RESERVAR' ? 'visible' : 'collapsed' }}" row="2" col="0" colSpan="6" text="{{tarjeta}}" (tap)="displayActionDialog()" class="btn btn-secundario"></Button>
 
-		<Label col="0" row="6" colSpan="6"  text="O paga con tarjeta" class="textoLabelRecogida text-center" textWrap="true"></Label>
-	    	
-		<Button col="0" row="7" colSpan="6" visibility="{{ textoBoton != 'RESERVAR' ? 'visible' : 'collapsed' }}" text="{{tarjeta}}" (tap)="displayActionDialog()" class="btn btn-secundario"></Button>
+		            <Button [text]="textoBoton" (tap)="pagar()" class="btn btn-principal"></Button>
 
-		<Button col="0" row="8" colSpan="6" text="Pagar con tarjeta" (tap)="pagar()" class="btn btn-principal"></Button>
+		        </StackLayout>
+		    </StackLayout>
+		</TabView>
+
 	    
-	</GridLayout>
 
-</ScrollView>
-</GridLayout>
-<!-- <TabView height="100%" minHeight="100%" [(ngModel)]="tabSelectedIndex" androidOffscreenTabLimit="0">
-	<StackLayout *tabItem="{title: 'Pago con saldo'}"> 
-		<GridLayout class="m-15" columns="*" rows="*" >
-			<Label text="Tu punto de recogida: " class="textoLabelRecogida" textWrap="true" col="0" row="0"></Label>
-		</GridLayout>
+	    
 
-	</StackLayout>
-	<StackLayout *tabItem="{title: 'Pago con saldo'}"> 
-        <StackLayout>
-        	<Label text="Tu punto de recogida: " class="textoLabelRecogida" textWrap="true"></Label>
-			<Label [text]='direccion' class="text-center textoRecogida" textWrap="true"></Label>
-			<Label class="m-t-10 p-10 text-center bienvenida" textWrap="true" text="¿Cuantos puestos deseas reservar?"></Label>
-			<GridLayout class="m-15" columns="*,*,*,*,*,*" rows="auto,auto,auto,auto,*" >
-			    
-			    <StackLayout class="btn-img"  orientation="horizontal" row="0" col="0" rowSpan="2" (tap)="disminuir()" >
-				   <Image  src="~/images/btn_menos.png"  width="100%" height="100%"></Image>
-				</StackLayout>
-
-			    <Label row="0" col="1" rowSpan="2" [text]="pasajeros" class="text-center font-weight-bold cantidadPasajeros"></Label>
-
-			    <StackLayout class="btn-img"  orientation="horizontal" row="0" col="2" rowSpan="2" (tap)="aumentar()" >
-				   <Image  src="~/images/btn_mas.png"  width="100%" height="100%"></Image>
-				</StackLayout>
-
-			    
-			    <Label row="0" col="3" colSpan="3" text="Total a pagar:" class="text-center font-weight-bold valorPagarLabel"></Label>
-			    <Label row="1" col="3" colSpan="3" [text]="valorTotal | currency:'COP':'symbol'" class="text-center font-weight-bold valorPagar"></Label>
-
-			    <Label col="0" row="2" colSpan="6" text="{{'Saldo actual: '+saldo}}" class="text-center titulo p-t-10" textWrap="true" ></Label>
-
-            	<Button col="0" row="3" colSpan="6" text="{{textoBoton}}" (tap)="pagarConSaldo()"  class="btn btn-principal"></Button>
-
-
-			   
-			    
-			</GridLayout>
-            
-        </StackLayout>
-    </StackLayout>
-    <StackLayout *tabItem="{title: 'Tarjeta de crédito'}">
-        <StackLayout>
-        	<Label text="Tu punto de recogida: " class="textoLabelRecogida" textWrap="true"></Label>
-			<Label [text]='direccion' class="text-center textoRecogida" textWrap="true"></Label>
-			<Label class="m-t-10 p-10 text-center bienvenida" textWrap="true" text="¿Cuantos puestos deseas reservar?"></Label>
-			<GridLayout class="m-15" columns="*,*,*,*,*,*" rows="auto,auto,auto,auto,*" >
-			    
-			    <StackLayout class="btn-img"  orientation="horizontal" row="0" col="0" rowSpan="2" (tap)="disminuir()" >
-				   <Image  src="~/images/btn_menos.png"  width="100%" height="100%"></Image>
-				</StackLayout>
-
-			    <Label row="0" col="1" rowSpan="2" [text]="pasajeros" class="text-center font-weight-bold cantidadPasajeros"></Label>
-
-			    <StackLayout class="btn-img"  orientation="horizontal" row="0" col="2" rowSpan="2" (tap)="aumentar()" >
-				   <Image  src="~/images/btn_mas.png"  width="100%" height="100%"></Image>
-				</StackLayout>
-
-			    
-			    <Label row="0" col="3" colSpan="3" text="Total a pagar:" class="text-center font-weight-bold valorPagarLabel"></Label>
-			    <Label row="1" col="3" colSpan="3" [text]="valorTotal | currency:'COP':'symbol'" class="text-center font-weight-bold valorPagar"></Label>
-
-			    <Button col="0" row="2" colSpan="6" text="{{textoBoton}}" (tap)="pagar()" class="btn btn-principal"></Button>
-        	
-            	<Button col="0" row="3" colSpan="6" visibility="{{ textoBoton != 'RESERVAR' ? 'visible' : 'collapsed' }}" text="{{tarjeta}}" (tap)="displayActionDialog()" class="btn btn-secundario"></Button>
-
-
-			   
-
-			    
-			    
-			</GridLayout>
-            
-        </StackLayout>
-    </StackLayout>
-</TabView> -->
-
-<!-- <MapView #mapView row="4" col="0" colSpan="6" [latitude]="latitude" [longitude]="longitude"
+	    <MapView #mapView row="4" col="0" colSpan="6" [latitude]="latitude" [longitude]="longitude"
              [zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom" [bearing]="bearing"
              [tilt]="tilt" i-padding="50,50,50,50" [padding]="padding" (mapReady)="onMapReady($event)"
              (markerSelect)="onMarkerEvent($event)" (markerBeginDragging)="onMarkerEvent($event)"
              (markerEndDragging)="onMarkerEvent($event)" (markerDrag)="onMarkerEvent($event)"
              (markerInfoWindowTapped)="onMarkerEvent($event)" (coordinateTapped)="onCoordinateTapped($event)"
-             (cameraChanged)="onCameraChanged($event)"></MapView> -->
+             (cameraChanged)="onCameraChanged($event)"></MapView>
+	    
+	</GridLayout>
+	
+
+
+</StackLayout>

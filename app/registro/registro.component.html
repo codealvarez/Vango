@@ -3,19 +3,13 @@
         <!-- YOUR CONTENT (maps & ScrollView) -->
         <Image src="~/images/logo_alpha.png"  width="50%" class="img-rounded m-t-20 m-b-10" ></Image>
         <Label class="m-t-10 p-10 text-center bienvenida h2" textWrap="true" text="Viaja · Comparte · Disfruta"></Label>
-        <TextField class="m-t-10 m-b-5 m-l-15 m-r-15 input-app" hint="Nombres" returnKeyType="next" autocorrect="false" autocapitalization="none" [(ngModel)]="name"></TextField>
-
-        <TextField class="m-t-10 m-b-5 m-l-15 m-r-15 input-app" hint="Apellidos" returnKeyType="next" autocorrect="false" autocapitalization="none" [(ngModel)]="lastname"></TextField>
-
+        <TextField class="m-t-10 m-b-5 m-l-15 m-r-15 input-app" hint="Nombres completo" returnKeyType="next" autocorrect="false" autocapitalization="none" [(ngModel)]="name"></TextField>
         <TextField class="m-t-10 m-b-5 m-l-15 m-r-15 input-app" hint="Correo electrónico" returnKeyType="next" keyboardType="email" 
             [(ngModel)]="email"></TextField>
         <TextField class="m-t-10 m-b-5 m-l-15 m-r-15 input-app" hint="Confirma el correo electrónico" returnKeyType="next" keyboardType="email"
             [(ngModel)]="email2"></TextField>
         <TextField class="m-t-10 m-b-5 m-l-15 m-r-15 input-app" hint="Número de cédula" returnKeyType="next" keyboardType="phone"
             [(ngModel)]="cedula"></TextField>
-
-        <TextField class="m-t-10 m-b-5 m-l-15 m-r-15 input-app" hint="Número de celular" returnKeyType="next" keyboardType="phone"
-            [(ngModel)]="celular"></TextField>
         <!-- <TextField class="m-t-10 m-b-5 m-l-15 m-r-15 input-app" hint="Grupo" returnKeyType="go"  autocorrect="false" autocapitalization="none"
             [(ngModel)]="grupo"></TextField> -->
         <Label [text]="empresa" (tap)="seleccionarEmpresa()" class="m-t-10 m-b-5 m-l-15 m-r-15 input-app p-10"></Label>

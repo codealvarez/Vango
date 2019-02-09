@@ -303,7 +303,7 @@ export class WebService {
         return this.http.get(serverUrl, { params:{ idusuario:user,idmodipay:idMember}, headers: headers })
             .pipe(map(res => res));
     }
-    getIdVango(cedula,email,nombre,empresa,idEmpresa,celular,apellidos) { 
+    getIdVango(cedula,email,nombre,empresa,idEmpresa) { 
         var serverUrl = "http://bimoney.co/vangoServices/webresources/service/registroMiembro";
         
         let headers = this.createRequestHeader();
@@ -314,20 +314,19 @@ export class WebService {
                 userE:'c@rpooling+', 
                 passE:'F3OZ3H@q*U',
                 nombre:nombre,
-                apellido:apellidos,
+                apellido:'',
                 correo:email,
                 password:cedula,
-                numIdentificacion:cedula,
                 ciudad:'Bogota',
                 empresa:empresa,
-                centrodecosto:'',
-                referencia1:"",
-                referencia2:"",
-                referencia3:"",
+                centrodecosto:'Centro Costo Prueba/Ciudad',
+                referencia1:"Ref1 Prueba",
+                referencia2:"Ref2 Prueba",
+                referencia3:"Ref3 Prueba",
                 fechadecaducidad:"",
                 regladeConsumo:"",
                 broker:idEmpresa,
-                movil:celular
+                movil:""
             }), { 
             headers: headers 
         }).pipe(map(res => res));
@@ -522,7 +521,7 @@ export class WebService {
                 idvango:idVango,
                 valor:valor,
                 description:"",
-                transferTypeId:"34",
+                transferTypeId:"",
                 origen:"2018-08-10 10:37:17|HOTEL NH LA BOHEME, CALLE 82, BOGOTÁ, COLOMBIA",
                 destino:"2018-08-10 10:38:28|ANDRÉS CARNE DE RES, CHIA, CUNDINAMARCA, COLOMBIA",
                 viajastecon:"Nombre Completo Conductor",

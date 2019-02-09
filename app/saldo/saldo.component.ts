@@ -136,7 +136,7 @@ export class SaldoComponent implements OnInit {
 
                     if(cedula){
                         //cedula,email,nombre,empresa,idEmpresa
-                        this.myService.getIdVango(cedula,usuario,nombres,empresa,idEmpresa,'','').subscribe((result:any) => {
+                        this.myService.getIdVango(cedula,usuario,nombres,empresa,idEmpresa).subscribe((result:any) => {
                             ApplicationSettings.setString("idvango",result.idvango);
                             this.exitoIdVango(idUsuario,result.idvango)
                         }, (error) => {

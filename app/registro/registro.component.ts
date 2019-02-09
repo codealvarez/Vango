@@ -24,11 +24,9 @@ let loader = new LoadingIndicator();
 })
 export class RegistroComponent implements OnInit {
     name: string;
-    lastname:string;
     email: string;
     email2: string;
     cedula: string;
-    celular:string;
     grupo: string;
     empresa:string='Selecciona tu empresa';
     empresaId:string;
@@ -107,15 +105,13 @@ export class RegistroComponent implements OnInit {
     onSignupButtonTap(): void {
         loader.show();
         const name = this.name;
-        const lastname = this.lastname;
         const email = this.email;
         const email2 = this.email2;
         const cedula = this.cedula;
-        const celular = this.celular;
         const grupo = this.grupo;
         const empresa = this.empresa;
         const empresaId = this.empresaId;
-        if(name&&email&&email2&&cedula&&empresa&&empresaId&&lastname&&celular){
+        if(name&&email&&email2&&cedula&&empresa&&empresaId){
             //MixpanelHelper.track('CreandoCuenta','OK');
             if(email != email2){
                 loader.hide();
@@ -128,7 +124,7 @@ export class RegistroComponent implements OnInit {
                     
                 });
             }else{
-                this.myService.registrar((name+' '+lastname),email,cedula,grupo).subscribe((result) => {
+                this.myService.registrar(name,email,cedula,grupo).subscribe((result) => {
                     this.onGetDataSuccess(result);
                 }, (error) => {
                     this.onGetDataError(error);
@@ -153,7 +149,7 @@ export class RegistroComponent implements OnInit {
         *************************************************************/
     }
     
-    onGetDataSuccess(res) { 
+    onGetDataSuccess(res) {
         console.log('Respuesta del registro');
         console.log(JSON.stringify(res)); 
         loader.hide();
@@ -208,7 +204,7 @@ export class RegistroComponent implements OnInit {
     exitoAsignacionModipay(idUsuario) {
         console.log('Respuesta del exitoIdMember');
         loader.hide();
-        this.myService.getIdVango(this.cedula,this.email,this.name,this.empresa,this.empresaId,this.celular,this.lastname).subscribe((result:any) => {
+        this.myService.getIdVango(this.cedula,this.email,this.name,this.empresa,this.empresaId).subscribe((result:any) => {
             console.log('Respuesta de asignación de ID Memebr');
             console.log(result);
             ApplicationSettings.setString("idvango",result.idvango);

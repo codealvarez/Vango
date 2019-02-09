@@ -7,11 +7,11 @@
     </StackLayout>
     <!-- YOUR BOTTOM BAR (StackLayout). Don't forget to add row="1" -->
     <StackLayout #bottomElt row="1">
-    	<TextField #inputCedula class="m-t-10 m-b-10 m-l-15 m-r-15 input-app text-center" hint="Ingresa aquí tu número de cédula"  returnKeyType="go" [(ngModel)]="cedula" (returnPress)="onReturn(inputCedula.text)"></TextField>
-	    <!-- <TextField class="m-t-10 m-b-10 m-l-15 m-r-15 input-border" hint="Contraseña" secure="true" autocorrect="false" autocapitalization="none" [(ngModel)]="clave"></TextField> -->
+    	<TextField #inputCedula class="m-t-10 m-b-10 m-l-15 m-r-15 input-app text-center" hint="Ingresa aquí tu número de cédula"  [(ngModel)]="cedula" ></TextField>
+	    <TextField #inputClave class="m-t-10 m-b-10 m-l-15 m-r-15 input-app text-center" hint="Contraseña" secure="true" autocorrect="false" autocapitalization="none" [(ngModel)]="clave" (returnPress)="onReturn(inputCedula.text, inputClave.text)" returnKeyType="go"></TextField>
 
 	    <Button class="btn btn-principal m-b-20" text="Iniciar Sesión" (tap)="onSigninButtonTap()"></Button>
-	    <!-- <Label class="m-t-10 m-b-10 m-l-15 m-r-15 text-center" text="¿Olvidaste tu contraseña?" (tap)="onForgotPasswordTap()"></Label> -->
+	    <Label class="m-t-10 m-b-10 m-l-15 m-r-15 text-center" text="¿Olvidaste tu contraseña?" [nsRouterLink]="['/recuperar']"></Label>
 	    <Button class="btn btn-secundario botonCrearCuenta" text="Crea tu cuenta" [nsRouterLink]="['/registro']"></Button>
     </StackLayout>
 </GridLayout>

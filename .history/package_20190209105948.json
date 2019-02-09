@@ -1,0 +1,61 @@
+{
+  "description": "NativeScript Application",
+  "license": "SEE LICENSE IN <your-license-filename>",
+  "readme": "NativeScript Application",
+  "repository": "<fill-your-repository-here>",
+  "nativescript": {
+    "id": "com.emeraldStudio.Carpooling",
+    "tns-ios": {
+      "version": "5.1.1"
+    },
+    "tns-android": {
+      "version": "5.1.0"
+    }
+  },
+  "scripts": {
+    "lint": "tslint \"app/**/*.ts\""
+  },
+  "dependencies": {
+    "@angular/animations": "~7.1.0",
+    "@angular/common": "~7.1.0",
+    "@angular/compiler": "~7.1.0",
+    "@angular/core": "~7.1.0",
+    "@angular/forms": "~7.1.0",
+    "@angular/http": "~7.1.0",
+    "@angular/platform-browser": "~7.1.0",
+    "@angular/platform-browser-dynamic": "~7.1.0",
+    "@angular/router": "~7.1.0",
+    "google-polyline": "^1.0.2",
+    "nativescript-accordion": "^6.0.0-beta.2",
+    "nativescript-angular": "^7.1.2",
+    "nativescript-appversion": "^1.4.1",
+    "nativescript-floatingactionbutton": "^5.0.0",
+    "nativescript-geolocation": "4.4.1",
+    "nativescript-google-maps-sdk": "^2.6.1",
+    "nativescript-grid-view": "5.0.0",
+    "nativescript-iqkeyboardmanager": "^1.3.0",
+    "nativescript-loading-indicator": "^2.4.0",
+    "nativescript-masked-text-field": "4.0.1",
+    "nativescript-plugin-firebase": "^7.4.6",
+    "nativescript-star-ratings": "^1.0.0",
+    "nativescript-theme-core": "~1.0.4",
+    "nativescript-ui-listview": "5.1.1",
+    "nativescript-ui-sidedrawer": "5.1.0",
+    "nativescript-webview-interface": "^1.4.2",
+    "reflect-metadata": "0.1.13",
+    "rxjs": "^6.3.3",
+    "tns-core-modules": "^5.1.2",
+    "zone.js": "^0.8.4"
+  },
+  "devDependencies": {
+    "@angular/compiler-cli": "~7.1.0",
+    "@ngtools/webpack": "~7.1.0",
+    "codelyzer": "4.5.0",
+    "extract-text-webpack-plugin": "~3.0.2",
+    "nativescript-dev-sass": "^1.6.0",
+    "nativescript-dev-typescript": "0.7.9",
+    "nativescript-dev-webpack": "^0.19.1",
+    "tslint": "5.12.1",
+    "typescript": "~3.1.1"
+  }
+}

@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { MapView, Marker, Position, Polyline, Bounds, Style } from 'nativescript-google-maps-sdk';
+import { MapView, Marker, Position, Polyline, Bounds, Style, ShapeEventData, Shape } from 'nativescript-google-maps-sdk';
 import { registerElement } from 'nativescript-angular/element-registry';
 //Drawer
 import * as dialogs from "ui/dialogs";
@@ -457,6 +457,7 @@ export class HomeComponent implements OnInit {
             line.addPoint(Position.positionFromLatLng(list[i][0],list[i][1]));
         }
 
+
         map.addPolyline(line);
 
         loader.hide();
@@ -634,7 +635,8 @@ export class HomeComponent implements OnInit {
         
     }
     onCoordinateTapped(args) {
-
+        console.log('Tap en mapa');
+        console.log(args);
         //console.log("Coordinate Tapped, Lat: " + args.position.latitude + ", Lon: " + args.position.longitude, args);
     }
 
@@ -644,5 +646,11 @@ export class HomeComponent implements OnInit {
     onCameraChanged(args) {
         console.log("Camera changed: " + JSON.stringify(args.camera), JSON.stringify(args.camera) === this.lastCamera);
         this.lastCamera = JSON.stringify(args.camera);
+    }
+    onShapeSelect(args:any){
+        console.log('Click en linea');
+        alert(JSON.stringify(args.shape));
+        let linea:Polyline=args.shape;
+        linea.getPoints()
     }
 }

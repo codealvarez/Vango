@@ -56,6 +56,10 @@
     
                 <StackLayout class="hr-light"></StackLayout>
 
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('terminos')" (tap)="onNavItemTap('/terminos')">
+                    <Label col="0" text="&#xf15c;" class="fa"></Label>
+                    <Label col="1" text="Términos y condiciones" class="p-r-10"></Label>
+                </GridLayout>
                 <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Salir')" (tap)="salir()">
                     <Label col="0" text="&#xf08b;" class="fa"></Label>
                     <Label col="1" text="Cerrar sesión" class="p-r-10"></Label>

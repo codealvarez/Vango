@@ -7,6 +7,7 @@ import {LoadingIndicator} from "nativescript-loading-indicator";
 import * as ApplicationSettings from "application-settings";
 import * as observableArray from "tns-core-modules/data/observable-array";
 import * as dialogs from "tns-core-modules/ui/dialogs";
+
 /* ***********************************************************
 * Before you can navigate to this page from your app, you need to reference this page's module in the
 * global app router module. Add the following object to the global array of routes:
@@ -25,20 +26,22 @@ export class SaldoComponent implements OnInit {
     empresaId:string;
     empresas=[];
     idvango = ApplicationSettings.getString('idvango');
-    constructor(private myService: WebService) {
+    constructor(private routerExtensions: RouterExtensions,private myService: WebService) {
         /* ***********************************************************
         * Use the constructor to inject app services that you need in this component.
         *************************************************************/
         
     }
     agregarSaldo(){
-        dialogs.alert({
+        /*dialogs.alert({
             title: "Carga tu cuenta",
             message: "Puedes agregar saldo a tu cuenta haciendo un pago en Baloto, con la referencia: "+this.idvango+". Automáticamente verás tu saldo actualizado",
             okButtonText: "Entendido"
         }).then(() => {
             console.log("Dialog closed!");
-        });
+        });*/
+        this.routerExtensions.navigate(["/infoRecarga"]);
+
     }
     onDrawerButtonTap(): void {
         const sideDrawer = <RadSideDrawer>app.getRootView();

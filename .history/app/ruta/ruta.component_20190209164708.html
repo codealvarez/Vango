@@ -1,0 +1,9 @@
+<ActionBar class="action-bar">
+    <NavigationButton text="Volver" android.systemIcon="ic_menu_back" (tap)="irAtras()"></NavigationButton> 
+    <Label class="action-bar-title" [text]="'Ruta: '+nombreRuta"></Label>
+</ActionBar>
+<GridLayout columns="*" rows="auto,*" backgroundColor="white" >
+	<Label col="0" row="0" textWrap="true" class="text-center p-t-10 p-b-10" text="Selecciona un punto de recogida sobre el trayecto"></Label> 
+    <!-- <web-view row="1" #webView></web-view> -->
+    <WebView row="1" loaded="onWebViewLoaded" id="myWebView" src="{{ webViewSrc }}"></WebView>
+</GridLayout>

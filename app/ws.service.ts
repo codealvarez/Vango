@@ -49,7 +49,29 @@ export class WebService {
         /*return this.http.get(serverUrl)
             .map(res => res); */
 
-        return this.http.get(serverUrl, { params:{ codigousu:user, claveusu:'0'}, headers: headers })
+        return this.http.get(serverUrl, { params:{ codigousu:user, claveusu:password}, headers: headers })
+            .pipe(map(res => res));
+    }
+
+    getClave(user) { 
+        var serverUrl = "http://ctcarpoolimp.cloudapp.net/carpoolservices/recuperar_clave.aspx";
+        
+        let headers = this.createRequestHeader();
+        /*return this.http.get(serverUrl)
+            .map(res => res); */
+
+        return this.http.get(serverUrl, { params:{ codigousu:user}, headers: headers })
+            .pipe(map(res => res));
+    }
+
+    guardarMensaje(user,asunto,mensaje) { 
+        var serverUrl = "http://ctcarpoolimp.cloudapp.net/carpoolservices/guardar_mensaje.aspx";
+        
+        let headers = this.createRequestHeader();
+        /*return this.http.get(serverUrl)
+            .map(res => res); */
+
+        return this.http.get(serverUrl, { params:{ codigousu:user, asunto:asunto, mensaje:mensaje}, headers: headers })
             .pipe(map(res => res));
     }
 
@@ -110,6 +132,16 @@ export class WebService {
         let headers = this.createRequestHeader();
 
         return this.http.get(serverUrl, { params:{ origen:'pasajero',destino:'conductor'}, headers: headers })
+            .pipe(map(res => res));
+    }
+
+    getTerminos() { 
+        
+        var serverUrl = "http://ctcarpoolimp.cloudapp.net/carpoolservices/traer_mensajes_predeterminados.aspx";
+        
+        let headers = this.createRequestHeader();
+
+        return this.http.get(serverUrl, { params:{ origen:'TYC'}, headers: headers })
             .pipe(map(res => res));
     }
 

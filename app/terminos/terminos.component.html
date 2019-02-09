@@ -1,0 +1,14 @@
+<ActionBar class="action-bar">
+	<NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+	<ActionItem icon="res://menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
+        ios.position="left">
+    </ActionItem>
+    <Label class="action-bar-title" text="Términos y condiciones"></Label>
+    
+</ActionBar>
+<!-- *ngIf='item.estadoviaje != "FINALIZADO"' -->
+<GridLayout rows="*">
+	<ScrollView row="0">
+		<Label [text]="terminos" textWrap="true" class="p-20"></Label>
+	</ScrollView>
+</GridLayout>	

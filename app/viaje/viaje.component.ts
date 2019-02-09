@@ -813,7 +813,7 @@ export class ViajeComponent implements OnInit {
             image.width=20; 
             image.height=20; 
             
-            image.imageSource = imageSource.fromResource('van');
+            image.imageSource = imageSource.fromResource('van2');
 
             model.van.title = "Ubicación del vehículo";  
             model.van.position = Position.positionFromLatLng(lat, lon);

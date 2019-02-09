@@ -1,0 +1,17 @@
+<ScrollView>
+     <StackLayout class="page p-t-15"> 
+        <!-- YOUR CONTENT (maps & ScrollView) -->
+        <Image src="~/images/logo_alpha.png"  width="50%" class="img-rounded m-t-20 m-b-10" ></Image>
+        <Label class="m-t-10 p-10 text-center bienvenida h2" textWrap="true" text="Ingresa tu número de cédula y te enviaremos un correo electrónico a la cuenta que registraste con los datos de tu contraseña."></Label>
+        
+        <TextField class="m-t-10 m-b-5 m-l-15 m-r-15 input-app" hint="Número de cédula" returnKeyType="next" keyboardType="phone"
+            [(ngModel)]="cedula"></TextField>
+        
+
+        <Button class="btn btn-principal" text="Recuperar" (tap)="onSigninButtonTap()"></Button>
+
+        <Label class="m-t-10 m-b-10 m-l-15 m-r-15 text-center" text="Volver" [nsRouterLink]="['/login']"></Label>
+
+    </StackLayout>
+</ScrollView>
+

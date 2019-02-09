@@ -6,6 +6,7 @@ const routes: Routes = [
     { path: "", redirectTo: "/login", pathMatch: "full" },
     { path: "disponibles", loadChildren: "./disponibles/disponibles.module#DisponiblesModule" },
     { path: "login", loadChildren: "./login/login.module#LoginModule" },
+    { path: "recuperar", loadChildren: "./recuperar/recuperar.module#RecuperarModule" },
     { path: "registro", loadChildren: "./registro/registro.module#RegistroModule" },
     { path: "home", loadChildren: "./home/home.module#HomeModule" },
     { path: "perfil", loadChildren: "./perfil/perfil.module#PerfilModule" },
@@ -28,6 +29,9 @@ const routes: Routes = [
     { path: "recorrido/:idruta/:idviaje", loadChildren: "./recorrido/recorrido.module#RecorridoModule" },
     { path: "recorrido/:idruta/:idviaje/:nombreruta", loadChildren: "./recorrido/recorrido.module#RecorridoModule" },
     { path: "calificar/:idruta/:idviaje/:placa/:idconductor", loadChildren: "./calificar/calificar.module#CalificarModule" },
+    { path: "infoRecarga", loadChildren: "./infoRecarga/infoRecarga.module#InfoRecargaModule" },
+    { path: "terminos", loadChildren: "./terminos/terminos.module#TerminosModule" },
+    
 ];
 
 @NgModule({

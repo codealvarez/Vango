@@ -24,7 +24,7 @@ let loader = new LoadingIndicator();
 
 export class LoginComponent implements OnInit {
     cedula: string;
-    //clave: string; 
+    clave: string; 
 
     constructor(private routerExtensions: RouterExtensions, private myService: WebService,private page: Page) {
         /* ***********************************************************
@@ -54,14 +54,14 @@ export class LoginComponent implements OnInit {
 
     onSigninButtonTap(): void { 
         const cedula = this.cedula;
-        //const clave = this.clave;
-        if(cedula){
-            this.hacerLogin(cedula,0); 
+        const clave = this.clave;
+        if(cedula && clave){
+            this.hacerLogin(cedula,clave); 
             //MixpanelHelper.track('IniciandoSesion','OK');   
         }else{
             dialogs.alert({
                 title: "Error",
-                message: "Debes ingresar tu número de cédula para iniciar sesión",
+                message: "Debes ingresar tu número de cédula y contraseña para iniciar sesión",
                 okButtonText: 'Ok!'
             }).then(() => {
             });
@@ -69,17 +69,17 @@ export class LoginComponent implements OnInit {
         
     }
 
-    public onReturn(cedula) {
+    public onReturn(cedula,clave) {
         console.log('Cedula ingresada: '+cedula);
         this.cedula = cedula;
-
-        if(this.cedula){
-            this.hacerLogin(cedula,0); 
+        this.clave = clave;
+        if(this.cedula && this.clave){
+            this.hacerLogin(cedula,clave); 
             //MixpanelHelper.track('IniciandoSesion','OK');   
         }else{
             dialogs.alert({
                 title: "Error",
-                message: "Debes ingresar tu número de cédula para iniciar sesión",
+                message: "Debes ingresar tu número de cédula y contraseña para iniciar sesión",
                 okButtonText: 'Ok!'
             }).then(() => {
             });
@@ -166,5 +166,6 @@ export class LoginComponent implements OnInit {
         /* ***********************************************************
         * Call your Forgot Password logic here.
         *************************************************************/
+        
     }
 }

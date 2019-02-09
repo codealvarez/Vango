@@ -1,0 +1,13 @@
+<ActionBar class="action-bar">
+    <NavigationButton text="Volver" android.systemIcon="ic_menu_back" (tap)="irAtras()"></NavigationButton> 
+    <Label class="action-bar-title" text="Carga tu cuenta"></Label>
+</ActionBar>
+
+<StackLayout class="page">
+	<Label class="m-t-10 p-10 text-center" textWrap="true" text="Puedes agregar saldo a tu cuenta haciendo un pago en Baloto:"></Label>
+	<Label class="m-t-10 p-10 font-weight-bold" textWrap="true" text="1. Indica Servicio de pines"></Label>
+	<Label class="m-t-10 p-10 font-weight-bold" textWrap="true" text="2. Convenio 951544 (Recaudos Vali)"></Label>
+	<Label class="m-t-10 p-10 font-weight-bold" textWrap="true" [text]="'3. Referencia 444'+idvango"></Label>
+	<Label class="m-t-10 p-10 font-weight-bold" textWrap="true" text="4. Te pedirán el número de teléfono que registraste"></Label>
+	<Label class="m-t-10 p-10 font-weight-bold" textWrap="true" text="5. Valor mínimo $30.000"></Label>
+</StackLayout>
